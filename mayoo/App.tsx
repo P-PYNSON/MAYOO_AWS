@@ -5,14 +5,19 @@
  * @format
  */
 
-import React from 'react';
+import React, {createContext, useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
 import SignIn from './screens/SignInScreen';
-import {Authenticator, withAuthenticator} from '@aws-amplify/ui-react-native';
+import {
+  Authenticator,
+  useAuthenticator,
+  withAuthenticator,
+} from '@aws-amplify/ui-react-native';
 import {ImageBackground} from 'react-native';
 import SignInHeader from './components/auth/SignInHeader';
+import AppHeader from './components/AppHeader';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -24,14 +29,13 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function App(): React.JSX.Element {
   return (
     <Authenticator.Provider>
-      <Authenticator
-        Header={SignInHeader}>
+      <Authenticator Header={SignInHeader}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen
               name="Home"
               component={HomeScreen}
-              options={{title: 'Home'}}
+              options={{headerTitle: props => <AppHeader />}}
             />
             <Stack.Screen
               name="SignIn"

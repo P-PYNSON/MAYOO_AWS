@@ -1,19 +1,22 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-mayoo-dev-191410-authRole",
-      "UnauthRoleArn": "arn:aws:iam::471112831225:role/amplify-mayoo-dev-191410-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::471112831225:role/amplify-mayoo-dev-191410-authRole",
+      "AuthRoleName": "amplify-mayoo-dev-164751-authRole",
+      "UnauthRoleArn": "arn:aws:iam::471112831225:role/amplify-mayoo-dev-164751-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::471112831225:role/amplify-mayoo-dev-164751-authRole",
       "Region": "eu-north-1",
-      "DeploymentBucketName": "amplify-mayoo-dev-191410-deployment",
-      "UnauthRoleName": "amplify-mayoo-dev-191410-unauthRole",
-      "StackName": "amplify-mayoo-dev-191410",
-      "StackId": "arn:aws:cloudformation:eu-north-1:471112831225:stack/amplify-mayoo-dev-191410/fe4f4d20-e3c0-11ee-80de-0a19d08ab100",
-      "AmplifyAppId": "d35rzaxeg3fkz"
+      "DeploymentBucketName": "amplify-mayoo-dev-164751-deployment",
+      "UnauthRoleName": "amplify-mayoo-dev-164751-unauthRole",
+      "StackName": "amplify-mayoo-dev-164751",
+      "StackId": "arn:aws:cloudformation:eu-north-1:471112831225:stack/amplify-mayoo-dev-164751/60c272c0-e79a-11ee-98c3-06aa0d534780",
+      "AmplifyAppId": "d1ckmatwe6vg4l"
     },
     "categories": {
       "auth": {
-        "mayoo10ac241e": {}
+        "mayooe9fef1b6": {}
+      },
+      "api": {
+        "mayoo": {}
       }
     }
   }

@@ -1,6 +1,32 @@
 {
+  "api": {
+    "mayoo": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "mayooe9fef1b6"
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authmayooe9fef1b6"
+            }
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
   "auth": {
-    "mayoo10ac241e": {
+    "mayooe9fef1b6": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
