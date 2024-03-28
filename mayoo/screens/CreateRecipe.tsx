@@ -20,9 +20,9 @@ export default function CreateRecipe() {
         const {accessToken, idToken} = (await fetchAuthSession()).tokens ?? {};
         
         if (idToken != undefined) {
-          console.log(idToken.toString());
+         /*  console.log(idToken.toString()); */
           const response = await fetch(
-            'https://fd3gcmobm4.execute-api.eu-north-1.amazonaws.com/dev/spoonacular/qsdqd',
+            'https://fd3gcmobm4.execute-api.eu-north-1.amazonaws.com/dev/spoonacular/toma',
             {
               method: 'GET',
               headers: {AuthorizationPool: idToken.toString()},

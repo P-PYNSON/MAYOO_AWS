@@ -35,7 +35,7 @@
         "fetchIngredients": {
           "secretsPathAmplifyAppId": "d1ckmatwe6vg4l",
           "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
-          "s3Key": "amplify-builds/fetchIngredients-66344f58377859757755-build.zip"
+          "s3Key": "amplify-builds/fetchIngredients-473852627642624c337a-build.zip"
         }
       }
     }
