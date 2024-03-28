@@ -9,14 +9,34 @@
       "UnauthRoleName": "amplify-mayoo-dev-164751-unauthRole",
       "StackName": "amplify-mayoo-dev-164751",
       "StackId": "arn:aws:cloudformation:eu-north-1:471112831225:stack/amplify-mayoo-dev-164751/60c272c0-e79a-11ee-98c3-06aa0d534780",
-      "AmplifyAppId": "d1ckmatwe6vg4l"
+      "AmplifyAppId": "d1ckmatwe6vg4l",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-mayoo-dev-164751-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
         "mayooe9fef1b6": {}
       },
       "api": {
-        "mayoo": {}
+        "mayoo": {},
+        "fetchSpoonIngredient": {}
+      },
+      "function": {
+        "fetchSpoonAPI": {
+          "secretsPathAmplifyAppId": "d1ckmatwe6vg4l"
+        },
+        "SpoonFunctions": {
+          "secretsPathAmplifyAppId": "d1ckmatwe6vg4l"
+        },
+        "SpoonFetch": {
+          "secretsPathAmplifyAppId": "d1ckmatwe6vg4l",
+          "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
+          "s3Key": "amplify-builds/SpoonFetch-494852553164484a7452-build.zip"
+        },
+        "fetchIngredients": {
+          "secretsPathAmplifyAppId": "d1ckmatwe6vg4l",
+          "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
+          "s3Key": "amplify-builds/fetchIngredients-66344f58377859757755-build.zip"
+        }
       }
     }
   }

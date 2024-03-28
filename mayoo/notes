@@ -102,3 +102,27 @@ const recipeData = async () => {
     console.log(error);
   }
 };
+
+/* FETCH SPOON */
+import {fetchAuthSession} from 'aws-amplify/auth';
+async function fetchSpoon() {
+  try {
+    const {accessToken, idToken} = (await fetchAuthSession()).tokens ?? {};
+    if (idToken != undefined) {
+      const response = await fetch(
+        'https://fd3gcmobm4.execute-api.eu-north-1.amazonaws.com/dev/spoonacular/qsdqd',
+        {
+          method: 'GET',
+          headers: {AuthorizationPool: idToken.toString()},
+        },
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data);
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}

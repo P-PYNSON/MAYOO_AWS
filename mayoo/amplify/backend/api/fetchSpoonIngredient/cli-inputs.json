@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "paths": {
+    "/spoonacular/{ingredient}": {
+      "name": "/spoonacular/{ingredient}",
+      "lambdaFunction": "fetchIngredients",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "read"
+        ]
+      }
+    }
+  }
+}

@@ -5,17 +5,14 @@
  * @format
  */
 
-import React, {createContext, useContext} from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
 import SignIn from './screens/SignInScreen';
 import {
   Authenticator,
-  useAuthenticator,
-  withAuthenticator,
 } from '@aws-amplify/ui-react-native';
-import {ImageBackground} from 'react-native';
 import SignInHeader from './components/auth/SignInHeader';
 import AppHeader from './components/AppHeader';
 import {importedRecipe} from './types/recipeTypes';

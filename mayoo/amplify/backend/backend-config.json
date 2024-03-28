@@ -1,5 +1,19 @@
 {
   "api": {
+    "fetchSpoonIngredient": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "fetchIngredients"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "mayoo": {
       "dependsOn": [
         {
@@ -49,6 +63,86 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "function": {
+    "SpoonFetch": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "fetchIngredients": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_SpoonFetch_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "SpoonFetch"
+        }
+      ]
+    },
+    "AMPLIFY_function_SpoonFetch_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "SpoonFetch"
+        }
+      ]
+    },
+    "AMPLIFY_function_SpoonFetch_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "SpoonFetch"
+        }
+      ]
+    },
+    "AMPLIFY_function_SpoonFunctions_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "SpoonFunctions"
+        }
+      ]
+    },
+    "AMPLIFY_function_fetchIngredients_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fetchIngredients"
+        }
+      ]
+    },
+    "AMPLIFY_function_fetchIngredients_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fetchIngredients"
+        }
+      ]
+    },
+    "AMPLIFY_function_fetchIngredients_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fetchIngredients"
+        }
+      ]
+    },
+    "AMPLIFY_function_fetchSpoonAPI_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fetchSpoonAPI"
+        }
+      ]
     }
   }
 }
