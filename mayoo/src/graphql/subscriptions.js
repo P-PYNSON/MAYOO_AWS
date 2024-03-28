@@ -6,6 +6,9 @@ export const onCreateRecipe = /* GraphQL */ `
     onCreateRecipe(filter: $filter) {
       id
       name
+      category
+      image
+      servings
       ingredients {
         image
         name
@@ -13,11 +16,9 @@ export const onCreateRecipe = /* GraphQL */ `
         unit
         __typename
       }
-      instructions
-      category
       prepTime
       cookTime
-      servings
+      instructions
       createdAt
       updatedAt
       authors
@@ -30,6 +31,9 @@ export const onUpdateRecipe = /* GraphQL */ `
     onUpdateRecipe(filter: $filter) {
       id
       name
+      category
+      image
+      servings
       ingredients {
         image
         name
@@ -37,11 +41,9 @@ export const onUpdateRecipe = /* GraphQL */ `
         unit
         __typename
       }
-      instructions
-      category
       prepTime
       cookTime
-      servings
+      instructions
       createdAt
       updatedAt
       authors
@@ -54,6 +56,9 @@ export const onDeleteRecipe = /* GraphQL */ `
     onDeleteRecipe(filter: $filter) {
       id
       name
+      category
+      image
+      servings
       ingredients {
         image
         name
@@ -61,11 +66,9 @@ export const onDeleteRecipe = /* GraphQL */ `
         unit
         __typename
       }
-      instructions
-      category
       prepTime
       cookTime
-      servings
+      instructions
       createdAt
       updatedAt
       authors

@@ -1,45 +1,37 @@
-import {
-  useAuthenticator,
-  withAuthenticator,
-} from '@aws-amplify/ui-react-native';
-import {fetchAuthSession, getCurrentUser} from 'aws-amplify/auth';
 import React, {useEffect} from 'react';
 import {
   ImageBackground,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
-import Amplify from 'aws-amplify';
-import {GraphQLResult, generateClient} from 'aws-amplify/api';
-import {
-  createRecipe,
-  updateRecipe,
-  deleteRecipe,
-} from '../src/graphql/mutations';
-import {
-  listRecipes,
-  getRecipe,
-  filterByIngredient,
-} from '../src/graphql/queries';
 
-const client = generateClient();
+import {RootStackParamList} from '../App';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-const HomeScreen = () => {
-  useEffect(() => {}, []);
+interface HomeScreenProps {
+  navigation: NativeStackNavigationProp<RootStackParamList>;
+}
 
+const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
   return (
     <ImageBackground
       source={require('../assets/images/background.png')}
       style={styles.backgroundImage}>
       <ScrollView contentContainerStyle={styles.scrollview}>
-        <View style={styles.allRecipesView}>
+        <TouchableOpacity style={styles.allRecipesView}>
           <Text>My recipes</Text>
-        </View>
-        <View style={styles.newRecipeView}></View>
-        <View style={styles.listsView}></View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.newRecipeView}
+          onPress={() => navigation.navigate('CreateRecipe')}>
+          <Text>Create new recipe</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.listsView}>
+          <Text>My list</Text>
+        </TouchableOpacity>
       </ScrollView>
     </ImageBackground>
   );
@@ -53,7 +45,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    gap:20,
+    gap: 20,
   },
   allRecipesView: {
     display: 'flex',
@@ -63,7 +55,7 @@ const styles = StyleSheet.create({
     width: '85%',
     height: '35%',
     borderRadius: 30,
-    elevation:20,
+    elevation: 20,
   },
   newRecipeView: {
     display: 'flex',
@@ -73,7 +65,7 @@ const styles = StyleSheet.create({
     width: '85%',
     height: '25%',
     borderRadius: 30,
-    elevation:20,
+    elevation: 20,
   },
   listsView: {
     display: 'flex',
@@ -83,7 +75,7 @@ const styles = StyleSheet.create({
     width: '85%',
     height: '25%',
     borderRadius: 30,
-    elevation:20,
+    elevation: 20,
   },
 });
 

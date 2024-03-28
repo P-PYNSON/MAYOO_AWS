@@ -6,6 +6,9 @@ export const getRecipe = /* GraphQL */ `
     getRecipe(id: $id) {
       id
       name
+      category
+      image
+      servings
       ingredients {
         image
         name
@@ -13,11 +16,9 @@ export const getRecipe = /* GraphQL */ `
         unit
         __typename
       }
-      instructions
-      category
       prepTime
       cookTime
-      servings
+      instructions
       createdAt
       updatedAt
       authors
@@ -35,52 +36,12 @@ export const listRecipes = /* GraphQL */ `
       items {
         id
         name
-        ingredients {
-          image
-          name
-          quantity
-          unit
-          __typename
-        }
-        instructions
         category
+        image
+        servings
         prepTime
         cookTime
-        servings
-        createdAt
-        updatedAt
-        authors
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-
-export const filterByIngredient = /* GraphQL */ `
-  query filterByIngredient(
-    $filter: ModelRecipeFilterInput
-    $limit: Int
-    $nextToken: String
-    $ingredientName: String
-  ) {
-    listRecipes(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        ingredients(filter: {name: {contains: $ingredientName}}) {
-          image
-          name
-          quantity
-          unit
-          __typename
-        }
         instructions
-        category
-        prepTime
-        cookTime
-        servings
         createdAt
         updatedAt
         authors

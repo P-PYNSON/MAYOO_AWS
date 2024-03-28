@@ -9,12 +9,13 @@ type Recipe
   @auth(rules: [{allow: owner, ownerField: "authors"}]) {
   id: ID!
   name: String!
-  ingredients: [Ingredient]!
-  instructions: [String]
   category: String
+  image:String
+  servings: Int
+  ingredients: [Ingredient]!
   prepTime: Int
   cookTime: Int
-  servings: Int
+  instructions: [String]
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
   authors: [String]

@@ -18,10 +18,16 @@ import {
 import {ImageBackground} from 'react-native';
 import SignInHeader from './components/auth/SignInHeader';
 import AppHeader from './components/AppHeader';
+import {importedRecipe} from './types/recipeTypes';
+import CreateRecipe from './screens/CreateRecipe';
 
 export type RootStackParamList = {
-  Home: undefined;
   SignIn: {redirectScreen: string};
+  Options: undefined;
+  Home: undefined;
+  CreateRecipe: undefined;
+  ShowRecipe: {recipe: importedRecipe};
+  UpdateRecipe: {recipe: importedRecipe};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -41,6 +47,11 @@ function App(): React.JSX.Element {
               name="SignIn"
               component={SignIn}
               options={{title: 'Sign In'}}
+            />
+            <Stack.Screen
+              name="CreateRecipe"
+              component={CreateRecipe}
+              options={{title: 'Create recipe'}}
             />
           </Stack.Navigator>
         </NavigationContainer>

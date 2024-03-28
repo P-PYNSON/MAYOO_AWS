@@ -9,6 +9,9 @@ export const createRecipe = /* GraphQL */ `
     createRecipe(input: $input, condition: $condition) {
       id
       name
+      category
+      image
+      servings
       ingredients {
         image
         name
@@ -16,11 +19,9 @@ export const createRecipe = /* GraphQL */ `
         unit
         __typename
       }
-      instructions
-      category
       prepTime
       cookTime
-      servings
+      instructions
       createdAt
       updatedAt
       authors
@@ -36,6 +37,9 @@ export const updateRecipe = /* GraphQL */ `
     updateRecipe(input: $input, condition: $condition) {
       id
       name
+      category
+      image
+      servings
       ingredients {
         image
         name
@@ -43,11 +47,9 @@ export const updateRecipe = /* GraphQL */ `
         unit
         __typename
       }
-      instructions
-      category
       prepTime
       cookTime
-      servings
+      instructions
       createdAt
       updatedAt
       authors
@@ -63,6 +65,9 @@ export const deleteRecipe = /* GraphQL */ `
     deleteRecipe(input: $input, condition: $condition) {
       id
       name
+      category
+      image
+      servings
       ingredients {
         image
         name
@@ -70,11 +75,9 @@ export const deleteRecipe = /* GraphQL */ `
         unit
         __typename
       }
-      instructions
-      category
       prepTime
       cookTime
-      servings
+      instructions
       createdAt
       updatedAt
       authors
