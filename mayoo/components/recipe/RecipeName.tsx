@@ -5,7 +5,7 @@ interface RecipeNameProps {
   setName: (text: string) => void;
   setCategory: (text: string) => void;
   setImage: (text: string) => void;
-  data: {name: string; category: string | null; image: string | null};
+  data: {name: string | undefined; category: string | undefined; image: string | undefined};
 }
 
 export default function RecipeName({

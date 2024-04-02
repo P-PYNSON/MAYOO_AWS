@@ -1,17 +1,3 @@
-/*
-Use the following code to retrieve configured secrets from SSM:
-
-const aws = require('aws-sdk');
-
-const { Parameters } = await (new aws.SSM())
-  .getParameters({
-    Names: ["spoonKey"].map(secretName => process.env[secretName]),
-    WithDecryption: true,
-  })
-  .promise();
-
-Parameters will be of the form { Name: 'secretName', Value: 'secretValue', ... }[]
-*/
 
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
@@ -30,13 +16,16 @@ exports.handler = async event => {
         WithDecryption: true,
       })
       .promise();
+
     const spoonKey = Parameters[0]['Value'];
+
     const response = await fetch(
       `https://api.spoonacular.com/food/ingredients/autocomplete?apiKey=${spoonKey}&query=${ingredientToFetch}&metaInformation=true`,
       {
         method: 'GET',
       },
     );
+
     const data = await response.json();
 
     return {
