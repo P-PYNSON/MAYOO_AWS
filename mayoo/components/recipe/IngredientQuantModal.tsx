@@ -15,19 +15,25 @@ export default function IngredientQuantModal({
 }: IngredientQuantModalProps) {
   return (
     <View style={styles.main}>
-      <Image
-        style={{width:120, height: 120, borderRadius: 200}}
-        source={{
-          uri: `https://spoonacular.com/cdn/ingredients_250x250/${data?.image}`,
-        }}
-      />
-      <Text style={{fontSize:20}}>{data?.name}</Text>
+      <View style={styles.imageBox}>
+        <Image
+          style={{width: 120, height: 120, borderRadius: 200}}
+          source={{
+            uri: `https://spoonacular.com/cdn/ingredients_250x250/${data?.image}`,
+          }}
+        />
+        <Text style={{fontSize: 20}}>{data?.name}</Text>
+      </View>
+      <View>
+        
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  main: {
+  main:{height:'100%', width:'100%', backgroundColor:'rgba(0, 0, 0, 0.5)'},
+  imageBox: {
     elevation: 30,
     borderWidth: 2,
     borderColor: 'black',
