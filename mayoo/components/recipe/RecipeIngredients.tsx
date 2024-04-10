@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react';
 import {
   ActivityIndicator,
   Image,
+  Keyboard,
   Modal,
   ScrollView,
   StyleSheet,
@@ -13,15 +14,18 @@ import {
 import {Ingredient} from '../../types/recipeTypes';
 import {fetchSpoon} from '../../amplify/backend/api/fetchSpoonIngredient/functions';
 import IngredientQuantModal from './IngredientQuantModal';
+import IngredientsBox from './IngredientsBox';
 
 interface RecipeIngredientsProps {
   setServings: (number: string) => void;
+  ingredients: Ingredient[];
   setIngredients: (ingredients: Ingredient[]) => void;
-  data: {servings: string | undefined; ingredients: Ingredient[] | undefined};
+  data: {servings: string | undefined; ingredients: Ingredient[]};
 }
 
 export default function RecipeIngredients({
   setServings,
+  ingredients,
   setIngredients,
   data,
 }: RecipeIngredientsProps) {
@@ -33,6 +37,7 @@ export default function RecipeIngredients({
   >([]);
   const [isSpoonFetching, setIsSpoonFetching] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [ingredientIndex, setIngredientIndex] = useState<number | null>(null);
 
   const debounceTimer = useRef<NodeJS.Timeout | undefined>(undefined);
 
@@ -47,6 +52,7 @@ export default function RecipeIngredients({
           const data = await fetchSpoon(text);
           setFetchedIngredientsList(data);
           setIsSpoonFetching(false);
+          Keyboard.dismiss();
         } catch (error) {
           console.log(error);
         }
@@ -56,25 +62,15 @@ export default function RecipeIngredients({
 
   //show modal to set ingredients quantity and mesuring init
   function selectIngredientHandler(element: Ingredient) {
+    setIngredientIndex(null);
     setSelectedIngredient(element);
     setShowModal(true);
+    setSearchedIngredientInput('');
+    setFetchedIngredientsList([]);
   }
 
   return (
     <View style={styles.mainView}>
-      {/* Servings Input */}
-      <View style={styles.inputView}>
-        <Text style={styles.text}>Servings</Text>
-        <TextInput
-          style={styles.textInput}
-          value={data.servings}
-          keyboardType="numeric"
-          onChangeText={(text: string) => {
-            setServings(text);
-          }}
-          placeholder=""></TextInput>
-      </View>
-
       {/* ingredient search Input */}
       <View style={styles.inputView}>
         <Text style={styles.text}> Add ingredients</Text>
@@ -118,16 +114,29 @@ export default function RecipeIngredients({
         ))}
       </ScrollView>
 
+      {/* Box of added ingredients */}
+      {ingredients.length > 0 && (
+        <IngredientsBox
+          ingredients={ingredients}
+          setSelectedIngredient={setSelectedIngredient}
+          setShowModal={setShowModal}
+          setIngredientIndex={setIngredientIndex}></IngredientsBox>
+      )}
+
       {/* Ingredients quantity modal */}
       <Modal
-        visible={selectedIngredient != undefined && showModal}
+        visible={showModal}
         animationType="slide"
         transparent={true}
         style={styles.modalView}>
-        <IngredientQuantModal
-          setShowModal={setShowModal}
-          data={selectedIngredient}
-          setIngredients={setIngredients}></IngredientQuantModal>
+        {selectedIngredient != undefined && (
+          <IngredientQuantModal
+            setShowModal={setShowModal}
+            selectedIngredient={selectedIngredient}
+            ingredientIndex={ingredientIndex}
+            ingredients={ingredients}
+            setIngredients={setIngredients}></IngredientQuantModal>
+        )}
       </Modal>
     </View>
   );

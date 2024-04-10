@@ -5,7 +5,11 @@ interface RecipeNameProps {
   setName: (text: string) => void;
   setCategory: (text: string) => void;
   setImage: (text: string) => void;
-  data: {name: string | undefined; category: string | undefined; image: string | undefined};
+  data: {
+    name: string | undefined;
+    category: string | undefined;
+    image: string | undefined;
+  };
 }
 
 export default function RecipeName({
@@ -19,6 +23,7 @@ export default function RecipeName({
       <View style={styles.inputView}>
         <Text style={styles.text}>Recipe Name</Text>
         <TextInput
+          maxLength={80}
           style={styles.textInput}
           value={data.name}
           onChangeText={(text: string) => {
@@ -26,16 +31,7 @@ export default function RecipeName({
           }}
           placeholder=""></TextInput>
       </View>
-      <View style={styles.inputView}>
-        <Text style={styles.text}> Category</Text>
-        <TextInput
-          style={styles.textInput}
-          value={data.name}
-          onChangeText={(text: string) => {
-            setCategory(text);
-          }}
-          placeholder=""></TextInput>
-      </View>
+     
     </View>
   );
 }
@@ -49,8 +45,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     borderTopWidth: 2,
-    borderLeftWidth:2,
-    borderRightWidth:2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
     borderColor: 'black',
   },
   textInput: {
