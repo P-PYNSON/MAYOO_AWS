@@ -15,16 +15,19 @@ import {
 } from '@aws-amplify/ui-react-native';
 import SignInHeader from './components/auth/SignInHeader';
 import AppHeader from './components/AppHeader';
-import {importedRecipe} from './types/recipeTypes';
+import {importedRecipe, newRecipe} from './types/recipeTypes';
 import CreateRecipe from './screens/CreateRecipe';
+import RecipesList from './screens/RecipesList';
+import ShowRecipe from './screens/ShowRecipe';
 
 export type RootStackParamList = {
   SignIn: {redirectScreen: string};
   Options: undefined;
   Home: undefined;
   CreateRecipe: undefined;
-  ShowRecipe: {recipe: importedRecipe};
-  UpdateRecipe: {recipe: importedRecipe};
+  ShowRecipe: {id:string};
+  UpdateRecipe: {recipe: newRecipe};
+  RecipesList: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -49,6 +52,16 @@ function App(): React.JSX.Element {
               name="CreateRecipe"
               component={CreateRecipe}
               options={{title: 'Create recipe'}}
+            />
+            <Stack.Screen
+              name="RecipesList"
+              component={RecipesList}
+              options={{title: 'All my recipes :3'}}
+            />
+            <Stack.Screen
+              name="ShowRecipe"
+              component={ShowRecipe}
+              options={{title: 'Yummy 😋'}}
             />
           </Stack.Navigator>
         </NavigationContainer>

@@ -21,7 +21,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
       source={require('../assets/images/background.png')}
       style={styles.backgroundImage}>
       <ScrollView contentContainerStyle={styles.scrollview}>
-        <TouchableOpacity style={styles.allRecipesView}>
+        <TouchableOpacity style={styles.allRecipesView}  onPress={() => navigation.navigate('RecipesList')}>
           <Text>My recipes</Text>
         </TouchableOpacity>
         <TouchableOpacity

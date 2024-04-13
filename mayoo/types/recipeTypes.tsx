@@ -3,7 +3,7 @@ export type newRecipe = {
   category?: string;
   image?: string;
   servings?: number;
-  ingredients: Ingredient;
+  ingredients: Ingredient[];
   prepTime?: number;
   cookTime?: number;
   instructions?: string[];
@@ -11,7 +11,14 @@ export type newRecipe = {
 
 export type importedRecipe = {
   id: string;
-  recipe: newRecipe;
+  name: string;
+  category?: string;
+  image?: string;
+  servings?: number;
+  ingredients: Ingredient[];
+  prepTime?: number;
+  cookTime?: number;
+  instructions?: string[];
   createAt: string;
   updateAt: string;
 };
@@ -22,5 +29,3 @@ export type Ingredient = {
   quantity: number;
   unit: string;
 };
-
-

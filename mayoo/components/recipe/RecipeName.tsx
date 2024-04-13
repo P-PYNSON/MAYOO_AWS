@@ -33,7 +33,6 @@ export default function RecipeName({setName, setImage, data}: RecipeNameProps) {
       });
 
       try {
-
         if (data.image) {
           //delete previous image from system for obvious optimisation reasons
           await RNFS.unlink(data.image);
@@ -51,19 +50,7 @@ export default function RecipeName({setName, setImage, data}: RecipeNameProps) {
 
   return (
     <View style={styles.mainView}>
-      <TouchableOpacity
-        onPress={() => {
-          handleImagePicker();
-        }}
-        style={styles.imageView}>
-        {data.image && data.image != '' && (
-          <Image
-            style={styles.image}
-            source={{
-              uri: data.image,
-            }}></Image>
-        )}
-      </TouchableOpacity>
+      {/* NAME INPUT */}
       <View style={styles.inputView}>
         <Text style={styles.text}>Recipe Name</Text>
         <TextInput
@@ -75,35 +62,63 @@ export default function RecipeName({setName, setImage, data}: RecipeNameProps) {
           }}
           placeholder=""></TextInput>
       </View>
+
+      {/* IMAGE SELECTOR */}
+      <TouchableOpacity
+        onPress={() => {
+          handleImagePicker();
+        }}
+        style={styles.imageView}>
+        {!data.image && (
+            <View style={styles.imageTextView}>
+              <Text style={styles.imageText}>Add Image</Text>
+            </View>
+          )}
+
+        {data.image && data.image != '' && (
+          <Image
+            style={styles.image}
+            source={{
+              uri: data.image,
+            }}></Image>
+        )}
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   mainView: {
-    width: '90%',
+    width: '100%',
     gap: 20,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
   imageView: {
-    width: '90%',
-    height: 200,
-    backgroundColor: 'gray',
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: 'black',
-  },
-  image: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
-    height: '100%',
+    height: 200,
+    backgroundColor: 'black',
+  },
+  imageTextView: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 20,
+    elevation: 15,
+  },
+  imageText: {fontSize: 24, color: 'black'},
+  image: {
+    width: '80%',
+    height: '95%',
     backgroundColor: 'black',
     resizeMode: 'cover',
-    borderRadius: 20,
+    
   },
   inputView: {
-    width: '100%',
+    width: '90%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -124,5 +139,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 2,
     borderColor: 'black',
+    textAlign: 'center',
+    fontSize: 20,
   },
 });

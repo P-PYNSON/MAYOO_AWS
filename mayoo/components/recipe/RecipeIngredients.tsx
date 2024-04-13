@@ -38,13 +38,14 @@ export default function RecipeIngredients({
   const [isSpoonFetching, setIsSpoonFetching] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [ingredientIndex, setIngredientIndex] = useState<number | null>(null);
+  const [noResultMessage, setNoResultMessage] = useState<boolean>(false);
 
   const debounceTimer = useRef<NodeJS.Timeout | undefined>(undefined);
 
   //call to spoonacular api with delay to reduce calls and minimum string size
   async function fetchSpoonHandler(text: string) {
     clearTimeout(debounceTimer.current);
-
+    setNoResultMessage(false);
     if (text.length > 2) {
       setIsSpoonFetching(true);
       debounceTimer.current = setTimeout(async () => {
@@ -53,6 +54,9 @@ export default function RecipeIngredients({
           setFetchedIngredientsList(data);
           setIsSpoonFetching(false);
           Keyboard.dismiss();
+          if(data.length < 1){
+            setNoResultMessage(true);
+          }
         } catch (error) {
           console.log(error);
         }
@@ -93,6 +97,7 @@ export default function RecipeIngredients({
 
       {/* List of returned ingredient from Spoon */}
       <ScrollView style={styles.fetchedIngredientBox}>
+        {noResultMessage && (<Text style={styles.noResultsText}> No results for '{searchedIngredientInput}'</Text>)}
         {fecthedIngredientsList.map((element, index) => (
           <TouchableOpacity
             key={index}
@@ -173,6 +178,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   fetchedIngredientBox: {display: 'flex', marginTop: -20},
+  noResultsText:{width:'100%', backgroundColor:'white', padding:10, textAlign:'center', fontSize:18},
   ingredientsShearchResults: {
     paddingHorizontal: 10,
     backgroundColor: 'white',
