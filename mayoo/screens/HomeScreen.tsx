@@ -18,7 +18,7 @@ interface HomeScreenProps {
 const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
   return (
     <ImageBackground
-      source={require('../assets/images/background.png')}
+      source={require('../assets/images/background.webp')}
       style={styles.backgroundImage}>
       <ScrollView contentContainerStyle={styles.scrollview}>
         <TouchableOpacity style={styles.allRecipesView}  onPress={() => navigation.navigate('RecipesList')}>

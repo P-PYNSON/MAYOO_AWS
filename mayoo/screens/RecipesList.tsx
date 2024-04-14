@@ -53,7 +53,7 @@ const RecipesList: React.FC<HomeScreenProps> = ({navigation}) => {
             <Image
               source={
                 recipe.image == null
-                  ? require('../assets/images/background.png')
+                  ? require('../assets/images/background.webp')
                   : {uri: recipe.image}
               }
               style={styles.recipeImage}></Image>

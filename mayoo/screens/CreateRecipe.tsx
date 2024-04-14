@@ -76,7 +76,7 @@ export default function CreateRecipe() {
   return (
     <View style={styles.main}>
       <ImageBackground
-        source={require('../assets/images/background.png')}
+        source={require('../assets/images/background.webp')}
         style={styles.backgroundImage}>
         <ScrollView contentContainerStyle={styles.scrollview}>
           <RecipeName
