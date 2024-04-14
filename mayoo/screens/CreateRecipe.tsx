@@ -1,26 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import {
-  Dimensions,
+  ActivityIndicator,
   ImageBackground,
-  KeyboardAvoidingView,
+  Modal,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {GraphQLResult, generateClient} from 'aws-amplify/api';
-import {
-  createRecipe,
-  updateRecipe,
-  deleteRecipe,
-} from '../src/graphql/mutations';
+import {generateClient} from 'aws-amplify/api';
+import {createRecipe} from '../src/graphql/mutations';
 import {Ingredient, newRecipe} from '../types/recipeTypes';
 import RecipeName from '../components/recipe/RecipeName';
-import {fetchAuthSession} from 'aws-amplify/auth';
 import RecipeIngredients from '../components/recipe/RecipeIngredients';
 import Instructions from '../components/recipe/Instructions';
 import AditionalInfos from '../components/recipe/AditionalInfos';
+import ModalTemplate from '../components/recipe/modals/ModalTemplate';
+import RecipeSaved from '../components/recipe/modals/RecipeSaved';
+import RecipeFailed from '../components/recipe/modals/RecipeFailed';
 
 const client = generateClient();
 
@@ -34,24 +32,29 @@ export default function CreateRecipe() {
   const [cookTime, setCookTime] = useState<string | undefined>();
   const [instructions, setInstructions] = useState<string[]>(['']);
 
-  const [validationText, setValidationText] = useState<string>('');
-  const [showValidationText, setShowValidationText] = useState<boolean>(false);
+  const [savingRecipe, setSavingRecipe] = useState<boolean>(false);
+  const [showValidationModal, setShowValidationModal] = useState<string>('');
 
-  async function saveRecipe(recipe:newRecipe) {
-      try {
-        const newRecipe = await client.graphql({
-          query: createRecipe,
-          variables: {
-            input: recipe,
-          },
-        });
-        console.log(newRecipe);
-      } catch (error) {
-        console.log(error);
-      }
+  async function saveRecipe(recipe: newRecipe) {
+    try {
+      const newRecipe = await client.graphql({
+        query: createRecipe,
+        variables: {
+          input: recipe,
+        },
+      });
+      console.log(newRecipe);
+      setSavingRecipe(false);
+      setShowValidationModal('saved');
+    } catch (error) {
+      console.log(error);
+      setSavingRecipe(false);
+      setShowValidationModal('error');
+    }
   }
 
   function validateRecipe() {
+    setSavingRecipe(true);
     if (name.length > 2 && ingredients.length > 0) {
       try {
         const recipe = {
@@ -67,6 +70,7 @@ export default function CreateRecipe() {
         saveRecipe(recipe);
       } catch (error) {
         console.log(error);
+        setShowValidationModal('error');
       }
     }
   }
@@ -120,14 +124,35 @@ export default function CreateRecipe() {
             </View>
           )}
           {name.length > 2 && ingredients.length > 0 && (
-            <TouchableOpacity
-              style={styles.saveRecipeButton}
-              onPress={() => {
-                validateRecipe();
-              }}>
-              <Text style={styles.saveRecipeButtonText}>Save Recipe !</Text>
-            </TouchableOpacity>
+            <>
+              {!savingRecipe && (
+                <TouchableOpacity
+                  style={styles.saveRecipeButton}
+                  onPress={() => {
+                    validateRecipe();
+                  }}>
+                  <Text style={styles.saveRecipeButtonText}>Save Recipe !</Text>
+                </TouchableOpacity>
+              )}
+              {savingRecipe && (
+                <ActivityIndicator size={'large'}></ActivityIndicator>
+              )}
+            </>
           )}
+
+          <ModalTemplate
+            visible={showValidationModal != ''}
+            onClose={() => {
+              setShowValidationModal('');
+            }}>
+            {showValidationModal == 'saved' && <RecipeSaved></RecipeSaved>}
+            {showValidationModal == 'error' && (
+              <RecipeFailed
+                closeModal={() => {
+                  setShowValidationModal('');
+                }}></RecipeFailed>
+            )}
+          </ModalTemplate>
         </ScrollView>
       </ImageBackground>
     </View>
