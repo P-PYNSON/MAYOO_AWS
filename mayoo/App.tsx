@@ -56,7 +56,7 @@ function App(): React.JSX.Element {
             <Stack.Screen
               name="RecipesList"
               component={RecipesList}
-              options={{title: 'All my recipes :3'}}
+              options={{title: 'All my recipes ༼つ ◕_◕ ༽つ🍰🍔🍕'}}
             />
             <Stack.Screen
               name="ShowRecipe"
