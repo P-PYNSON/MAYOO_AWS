@@ -1,0 +1,10 @@
+create user pool
+use amplify cli to set auth
+create graphql api for dynamo database
+create api for lambda funtion
+
+amplify init
+amplify add auth
+amplify add funtion
+amplify add api
+

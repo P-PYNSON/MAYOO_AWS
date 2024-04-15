@@ -1,0 +1,128 @@
+import {GraphQLResult, generateClient} from 'aws-amplify/api';
+import {
+  createRecipe,
+  updateRecipe,
+  deleteRecipe,
+} from '../src/graphql/mutations';
+import {listRecipes, getRecipe} from '../src/graphql/queries';
+
+const client = generateClient();
+
+/* CREATE RECIPE :  */
+const recipeData = async () => {
+  try {
+    const newRecipe = await client.graphql({
+      query: createRecipe,
+      variables: {
+        input: {
+          name: 'Test 1',
+          ingredients: [
+            {
+              image: 'ingredient_image_url',
+              name: 'tomatoes',
+              quantity: 115,
+              unit: 'gr',
+            },
+          ],
+          instructions: ['Instruction 1', 'Instruction 2'],
+          category: 'Italian',
+          prepTime: 30,
+          cookTime: 60,
+          servings: 4,
+        },
+      },
+    });
+    console.log(newRecipe);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/* UPDATE RECIPE: */
+
+const recipeData = async () => {
+  try {
+    const newRecipe = await client.graphql({
+      query: updateRecipe,
+      variables: {
+        input: {
+          id: 'dd47bf9e-f72e-4801-bd3a-c301b73a2825',
+          name: 'Update 1',
+          ingredients: [
+            {
+              image: 'ingredient_image_url',
+              name: 'potatoes',
+              quantity: 115,
+              unit: 'gr',
+            },
+          ],
+          instructions: ['Instruction updated 1', 'Instruction updated 2'],
+          category: 'Russian',
+          prepTime: 30,
+          cookTime: 60,
+          servings: 4,
+        },
+      },
+    });
+    console.log(newRecipe);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/* DELETE RECIPE: */
+
+const recipeData = async () => {
+  try {
+    const newRecipe = await client.graphql({
+      query: deleteRecipe,
+      variables: {
+        input: {
+          id: 'dd47bf9e-f72e-4801-bd3a-c301b73a2825',
+        },
+      },
+    });
+    console.log(newRecipe);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/* GET FILTERED RECIPE: */
+
+/* GET RECIPES */
+
+const recipeData = async () => {
+  try {
+    const newRecipe: GraphQLResult<any> = await client.graphql({
+      query: listRecipes,
+    });
+    console.log(newRecipe.data.listRecipes.items[0]);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/* FETCH SPOON */
+import {fetchAuthSession} from 'aws-amplify/auth';
+async function fetchSpoon() {
+  try {
+    const {accessToken, idToken} = (await fetchAuthSession()).tokens ?? {};
+    if (idToken != undefined) {
+      const response = await fetch(
+        'https://fd3gcmobm4.execute-api.eu-north-1.amazonaws.com/dev/spoonacular/qsdqd',
+        {
+          method: 'GET',
+          headers: {AuthorizationPool: idToken.toString()},
+        },
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data);
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
