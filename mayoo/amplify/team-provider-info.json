@@ -27,16 +27,12 @@
         "SpoonFunctions": {
           "secretsPathAmplifyAppId": "d1ckmatwe6vg4l"
         },
-        "SpoonFetch": {
-          "secretsPathAmplifyAppId": "d1ckmatwe6vg4l",
-          "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
-          "s3Key": "amplify-builds/SpoonFetch-494852553164484a7452-build.zip"
-        },
         "fetchIngredients": {
           "secretsPathAmplifyAppId": "d1ckmatwe6vg4l",
           "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
-          "s3Key": "amplify-builds/fetchIngredients-473852627642624c337a-build.zip"
-        }
+          "s3Key": "amplify-builds/fetchIngredients-65484442337354654962-build.zip"
+        },
+        "SpoonFetch": {}
       }
     }
   }
