@@ -19,6 +19,7 @@ import {importedRecipe, newRecipe} from './types/recipeTypes';
 import CreateRecipe from './screens/CreateRecipe';
 import RecipesList from './screens/RecipesList';
 import ShowRecipe from './screens/ShowRecipe';
+import UpdateRecipe from './screens/UpdateRecipe';
 
 export type RootStackParamList = {
   SignIn: {redirectScreen: string};
@@ -26,7 +27,7 @@ export type RootStackParamList = {
   Home: undefined;
   CreateRecipe: undefined;
   ShowRecipe: {id:string};
-  UpdateRecipe: {recipe: newRecipe};
+  UpdateRecipe: {id:string};
   RecipesList: undefined;
 };
 
@@ -62,6 +63,11 @@ function App(): React.JSX.Element {
               name="ShowRecipe"
               component={ShowRecipe}
               options={{title: 'Yummy 😋'}}
+            />
+            <Stack.Screen
+              name="UpdateRecipe"
+              component={UpdateRecipe}
+              options={{title: 'Modify 😋'}}
             />
           </Stack.Navigator>
         </NavigationContainer>
