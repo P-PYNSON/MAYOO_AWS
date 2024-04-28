@@ -17,7 +17,6 @@ const SignOutButton = () => {
 export default function OptionsScreen() {
   return (
     <View>
-      {' '}
       <SignOutButton></SignOutButton>
     </View>
   );

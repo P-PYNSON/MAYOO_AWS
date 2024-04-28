@@ -22,13 +22,6 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
-    "SpoonFetch": {
-      "Arn": "string",
-      "LambdaExecutionRole": "string",
-      "LambdaExecutionRoleArn": "string",
-      "Name": "string",
-      "Region": "string"
-    },
     "fetchIngredients": {
       "Arn": "string",
       "LambdaExecutionRole": "string",

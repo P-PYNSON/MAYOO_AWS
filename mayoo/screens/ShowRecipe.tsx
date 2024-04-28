@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+  ActivityIndicator,
   Image,
   ScrollView,
   StyleSheet,
@@ -11,9 +12,8 @@ import {RootStackParamList} from '../App';
 import {RouteProp} from '@react-navigation/native';
 import IngredientsBoxUnmodifiable from '../components/ShowRecipe/IngredientsBoxUnmodifiable';
 import {GraphQLResult, generateClient} from 'aws-amplify/api';
-import {listRecipes, getRecipe} from '../src/graphql/queries';
-import {importedRecipe, newRecipe} from '../types/recipeTypes';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { getRecipe} from '../src/graphql/queries';
+import {importedRecipe} from '../types/recipeTypes';
 import InstructionsUnmodifiable from '../components/ShowRecipe/InstructionsUnmodifiable';
 
 const client = generateClient();
@@ -26,6 +26,8 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
   const {id} = route.params;
 
   const [recipe, setRecipe] = useState<importedRecipe>();
+  const [dataLoading, setDataLoading] = useState<boolean>(true);
+
 
   useEffect(() => {
     const recipeData = async () => {
@@ -36,8 +38,9 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
             id: id,
           },
         });
-        console.log(newRecipe.data.getRecipe.instructions);
+        console.log('recipe loaded');
         setRecipe(newRecipe.data.getRecipe);
+        setDataLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -48,6 +51,7 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
 
   return (
     <ScrollView contentContainerStyle={styles.main}>
+      {dataLoading && <ActivityIndicator size={'large'}></ActivityIndicator>}
       {recipe && (
         <View style={styles.mainView}>
           <Image

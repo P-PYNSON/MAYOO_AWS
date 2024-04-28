@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+  ActivityIndicator,
   Image,
   ScrollView,
   StyleSheet,
@@ -10,11 +11,9 @@ import {
 import {GraphQLResult, generateClient} from 'aws-amplify/api';
 import {listRecipes, getRecipe} from '../src/graphql/queries';
 import {importedRecipe, newRecipe} from '../types/recipeTypes';
-
 import {RootStackParamList} from '../App';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import ModalTemplate from '../components/recipe/modals/ModalTemplate';
-import DeleteRecipe from '../components/recipe/modals/DeleteRecipe';
+import RecipesListCard from '../components/recipeList/RecipeListCard';
 
 const client = generateClient();
 
@@ -24,8 +23,8 @@ interface HomeScreenProps {
 
 const RecipesList: React.FC<HomeScreenProps> = ({navigation}) => {
   const [recipesList, setRecipesList] = useState([]);
-  const [indexToShowButton, setIndexToShowButton] = useState<number>();
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [dataLoading, setDataLoading] = useState<boolean>(true);
 
   const closeDeleteModal = (wasDeleted: boolean) => {
     setShowDeleteModal(false);
@@ -36,77 +35,34 @@ const RecipesList: React.FC<HomeScreenProps> = ({navigation}) => {
 
   const recipeData = async () => {
     try {
-      const newRecipe: GraphQLResult<any> = await client.graphql({
+      const recipeList: GraphQLResult<any> = await client.graphql({
         query: listRecipes,
       });
-      setRecipesList(newRecipe.data.listRecipes.items);
-      console.log(newRecipe.data.listRecipes.items);
+      setRecipesList(recipeList.data.listRecipes.items);
+      setDataLoading(false);
+      console.log(recipeList.data.listRecipes.items);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    recipeData();
-  }, []);
+    navigation.addListener('focus', () => {
+        recipeData();
+      console.log('reloaded');
+    });
+  }, [navigation]);
 
   return (
     <ScrollView contentContainerStyle={styles.main}>
+      {dataLoading && <ActivityIndicator size={'large'}></ActivityIndicator>}
       <View style={styles.mainView}>
-
-        {recipesList.length > 0 &&      
+        {recipesList.length > 0 &&
           recipesList.map((recipe: importedRecipe, index: number) => (
-            
-            <TouchableOpacity
-              style={styles.recipeView}
+            <RecipesListCard
               key={index}
-              onPress={() => {
-                navigation.navigate('ShowRecipe', {id: recipe.id});
-              }}
-              onLongPress={() => {
-                setIndexToShowButton(index);
-              }}>
-              <Image
-                source={
-                  recipe.image == null
-                    ? require('../assets/images/background.webp')
-                    : {uri: recipe.image}
-                }
-                style={styles.recipeImage}></Image>
-              <View style={styles.textView}>
-                <Text style={styles.textViewText}>{recipe.name}</Text>
-              </View>
-
-              {/* VIEW SHOWING DELETE MODIFY OPTIONS */}
-              {indexToShowButton == index && (
-                <View style={styles.buttonView}>
-                  <TouchableOpacity
-                    onLongPress={() => {
-                      setIndexToShowButton(undefined);
-                    }}
-                    onPress={() => {
-                      setShowDeleteModal(true);
-                    }}
-                    style={styles.deleteView}>
-                    <Text>Delete</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-
-              {/* MODALS*/}
-              <ModalTemplate
-                visible={showDeleteModal}
-                onClose={() => {
-                  recipeData();
-                }}>
-                <DeleteRecipe
-                  recipeName={recipe.name}
-                  recipeID={recipe.id}
-                  closeModal={(boolean) => {
-                    closeDeleteModal(boolean);
-                  }}></DeleteRecipe>
-              </ModalTemplate>
-            </TouchableOpacity>
+              navigation={navigation}
+              recipe={recipe}></RecipesListCard>
           ))}
       </View>
     </ScrollView>

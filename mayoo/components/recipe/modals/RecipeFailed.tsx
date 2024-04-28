@@ -26,7 +26,7 @@ const RecipeFailed = ({closeModal}: RecipeFailedProps) => {
       <TouchableOpacity
         style={styles.navigationButtons}
         onPress={() => {
-            closeModal;
+            closeModal();
         }}>
         <Text style={styles.navigationButtonsText}>Close</Text>
       </TouchableOpacity>

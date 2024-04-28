@@ -66,12 +66,6 @@
     }
   },
   "function": {
-    "SpoonFetch": {
-      "build": true,
-      "dependsOn": [],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "fetchIngredients": {
       "build": true,
       "dependsOn": [],
@@ -80,30 +74,6 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_SpoonFetch_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "SpoonFetch"
-        }
-      ]
-    },
-    "AMPLIFY_function_SpoonFetch_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "SpoonFetch"
-        }
-      ]
-    },
-    "AMPLIFY_function_SpoonFetch_secretsPathAmplifyAppId": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "SpoonFetch"
-        }
-      ]
-    },
     "AMPLIFY_function_SpoonFunctions_secretsPathAmplifyAppId": {
       "usedBy": [
         {

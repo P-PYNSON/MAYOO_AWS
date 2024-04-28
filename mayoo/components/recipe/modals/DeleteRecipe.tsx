@@ -13,7 +13,7 @@ import {
 const client = generateClient();
 
 interface RecipeFailedProps {
-  closeModal: (boolean:boolean) => void;
+  closeModal: () => void;
   recipeName: string;
   recipeID: string;
 }
@@ -35,7 +35,7 @@ const DeleteRecipe = ({
         },
       });
       console.log(newRecipe);
-      closeModal(true);
+      closeModal();
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +57,7 @@ const DeleteRecipe = ({
       <TouchableOpacity
         style={styles.navigationButtons}
         onPress={() => {
-          closeModal(false);
+          closeModal();
         }}>
         <Text style={styles.navigationButtonsText}>Close</Text>
       </TouchableOpacity>
