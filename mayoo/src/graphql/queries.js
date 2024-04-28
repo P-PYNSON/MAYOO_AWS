@@ -59,3 +59,53 @@ export const listRecipes = /* GraphQL */ `
     }
   }
 `;
+export const getList = /* GraphQL */ `
+  query GetList($id: ID!) {
+    getList(id: $id) {
+      id
+      name
+      ingredients {
+        checked
+        name
+        recipe
+        image
+        quantity
+        unit
+        __typename
+      }
+      createdAt
+      updatedAt
+      authors
+      __typename
+    }
+  }
+`;
+export const listLists = /* GraphQL */ `
+  query ListLists(
+    $filter: ModelListFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listLists(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        ingredients {
+          checked
+          name
+          recipe
+          image
+          quantity
+          unit
+          __typename
+        }
+        createdAt
+        updatedAt
+        authors
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;

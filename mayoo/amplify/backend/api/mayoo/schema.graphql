@@ -21,10 +21,30 @@ type Recipe
   authors: [String]
 }
 
+type List
+  @model
+  @auth(rules: [{allow: owner, ownerField: "authors"}]) {
+  id: ID!
+  name: String!
+  ingredients: [ListIngredient]
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  authors: [String]
+}
+
 type Ingredient {
   image: String
   name: String!
   quantity: Int!
+  unit: String
+}
+
+type ListIngredient {
+  checked: String!
+  name: String!
+  recipe: String
+  image: String
+  quantity: Int
   unit: String
 }
 

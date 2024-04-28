@@ -76,3 +76,66 @@ export const onDeleteRecipe = /* GraphQL */ `
     }
   }
 `;
+export const onCreateList = /* GraphQL */ `
+  subscription OnCreateList($filter: ModelSubscriptionListFilterInput) {
+    onCreateList(filter: $filter) {
+      id
+      name
+      ingredients {
+        checked
+        name
+        recipe
+        image
+        quantity
+        unit
+        __typename
+      }
+      createdAt
+      updatedAt
+      authors
+      __typename
+    }
+  }
+`;
+export const onUpdateList = /* GraphQL */ `
+  subscription OnUpdateList($filter: ModelSubscriptionListFilterInput) {
+    onUpdateList(filter: $filter) {
+      id
+      name
+      ingredients {
+        checked
+        name
+        recipe
+        image
+        quantity
+        unit
+        __typename
+      }
+      createdAt
+      updatedAt
+      authors
+      __typename
+    }
+  }
+`;
+export const onDeleteList = /* GraphQL */ `
+  subscription OnDeleteList($filter: ModelSubscriptionListFilterInput) {
+    onDeleteList(filter: $filter) {
+      id
+      name
+      ingredients {
+        checked
+        name
+        recipe
+        image
+        quantity
+        unit
+        __typename
+      }
+      createdAt
+      updatedAt
+      authors
+      __typename
+    }
+  }
+`;
