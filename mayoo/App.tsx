@@ -10,9 +10,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
 import SignIn from './screens/SignInScreen';
-import {
-  Authenticator,
-} from '@aws-amplify/ui-react-native';
+import {Authenticator} from '@aws-amplify/ui-react-native';
 import SignInHeader from './components/auth/SignInHeader';
 import AppHeader from './components/AppHeader';
 import {importedRecipe, newRecipe} from './types/recipeTypes';
@@ -20,15 +18,17 @@ import CreateRecipe from './screens/CreateRecipe';
 import RecipesList from './screens/RecipesList';
 import ShowRecipe from './screens/ShowRecipe';
 import UpdateRecipe from './screens/UpdateRecipe';
+import MyLists from './screens/MyLists';
 
 export type RootStackParamList = {
   SignIn: {redirectScreen: string};
   Options: undefined;
   Home: undefined;
   CreateRecipe: undefined;
-  ShowRecipe: {id:string};
-  UpdateRecipe: {id:string};
+  ShowRecipe: {id: string};
+  UpdateRecipe: {id: string};
   RecipesList: undefined;
+  MyLists: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -68,6 +68,11 @@ function App(): React.JSX.Element {
               name="UpdateRecipe"
               component={UpdateRecipe}
               options={{title: 'Modify 😋'}}
+            />
+            <Stack.Screen
+              name="MyLists"
+              component={MyLists}
+              options={{title: 'My Food Lists 🛒'}}
             />
           </Stack.Navigator>
         </NavigationContainer>

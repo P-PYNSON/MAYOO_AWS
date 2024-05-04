@@ -9,11 +9,12 @@ import {
   View,
 } from 'react-native';
 import {GraphQLResult, generateClient} from 'aws-amplify/api';
-import {listRecipes, getRecipe} from '../src/graphql/queries';
+import {listRecipes, getRecipe, listLists} from '../src/graphql/queries';
 import {importedRecipe, newRecipe} from '../types/recipeTypes';
 import {RootStackParamList} from '../App';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import RecipesListCard from '../components/recipeList/RecipeListCard';
+import {importedList} from '../types/listsTypes';
 
 const client = generateClient();
 
@@ -21,18 +22,18 @@ interface HomeScreenProps {
   navigation: NativeStackNavigationProp<RootStackParamList>;
 }
 
-const RecipesList: React.FC<HomeScreenProps> = ({navigation}) => {
-  const [recipesList, setRecipesList] = useState([]);
+const MyLists: React.FC<HomeScreenProps> = ({navigation}) => {
+  const [listsList, setListsList] = useState([]);
   const [dataLoading, setDataLoading] = useState<boolean>(true);
 
   const recipeData = async () => {
     try {
-      const recipeList: GraphQLResult<any> = await client.graphql({
-        query: listRecipes,
+      const listsList: GraphQLResult<any> = await client.graphql({
+        query: listLists,
       });
-      setRecipesList(recipeList.data.listRecipes.items);
+      setListsList(listsList.data.listRecipes.items);
       setDataLoading(false);
-      /* console.log(recipeList.data.listRecipes.items); */
+      console.log(listsList.data.listRecipes.items[0]);
     } catch (error) {
       console.log(error);
     }
@@ -49,13 +50,8 @@ const RecipesList: React.FC<HomeScreenProps> = ({navigation}) => {
     <ScrollView contentContainerStyle={styles.main}>
       {dataLoading && <ActivityIndicator size={'large'}></ActivityIndicator>}
       <View style={styles.mainView}>
-        {recipesList.length > 0 &&
-          recipesList.map((recipe: importedRecipe, index: number) => (
-            <RecipesListCard
-              key={index}
-              navigation={navigation}
-              recipe={recipe}></RecipesListCard>
-          ))}
+        {listsList.length > 0 &&
+          listsList.map((list: importedList, index: number) => <View></View>)}
       </View>
     </ScrollView>
   );
@@ -117,4 +113,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RecipesList;
+export default MyLists;

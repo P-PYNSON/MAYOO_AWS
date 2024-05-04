@@ -93,13 +93,13 @@ export const createList = /* GraphQL */ `
     createList(input: $input, condition: $condition) {
       id
       name
+      recipes
       ingredients {
         checked
-        name
-        recipe
+        number
         image
-        quantity
-        unit
+        name
+        quantities
         __typename
       }
       createdAt
@@ -117,13 +117,13 @@ export const updateList = /* GraphQL */ `
     updateList(input: $input, condition: $condition) {
       id
       name
+      recipes
       ingredients {
         checked
-        name
-        recipe
+        number
         image
-        quantity
-        unit
+        name
+        quantities
         __typename
       }
       createdAt
@@ -141,13 +141,13 @@ export const deleteList = /* GraphQL */ `
     deleteList(input: $input, condition: $condition) {
       id
       name
+      recipes
       ingredients {
         checked
-        name
-        recipe
+        number
         image
-        quantity
-        unit
+        name
+        quantities
         __typename
       }
       createdAt

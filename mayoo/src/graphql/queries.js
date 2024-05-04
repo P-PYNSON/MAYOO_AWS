@@ -64,13 +64,13 @@ export const getList = /* GraphQL */ `
     getList(id: $id) {
       id
       name
+      recipes
       ingredients {
         checked
-        name
-        recipe
+        number
         image
-        quantity
-        unit
+        name
+        quantities
         __typename
       }
       createdAt
@@ -90,13 +90,13 @@ export const listLists = /* GraphQL */ `
       items {
         id
         name
+        recipes
         ingredients {
           checked
-          name
-          recipe
+          number
           image
-          quantity
-          unit
+          name
+          quantities
           __typename
         }
         createdAt

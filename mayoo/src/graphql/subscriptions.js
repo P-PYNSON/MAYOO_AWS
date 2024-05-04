@@ -81,13 +81,13 @@ export const onCreateList = /* GraphQL */ `
     onCreateList(filter: $filter) {
       id
       name
+      recipes
       ingredients {
         checked
-        name
-        recipe
+        number
         image
-        quantity
-        unit
+        name
+        quantities
         __typename
       }
       createdAt
@@ -102,13 +102,13 @@ export const onUpdateList = /* GraphQL */ `
     onUpdateList(filter: $filter) {
       id
       name
+      recipes
       ingredients {
         checked
-        name
-        recipe
+        number
         image
-        quantity
-        unit
+        name
+        quantities
         __typename
       }
       createdAt
@@ -123,13 +123,13 @@ export const onDeleteList = /* GraphQL */ `
     onDeleteList(filter: $filter) {
       id
       name
+      recipes
       ingredients {
         checked
-        name
-        recipe
+        number
         image
-        quantity
-        unit
+        name
+        quantities
         __typename
       }
       createdAt

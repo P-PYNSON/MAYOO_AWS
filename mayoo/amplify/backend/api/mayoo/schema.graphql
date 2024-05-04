@@ -4,13 +4,11 @@
 # https://rv6g2aj5sja2vmuja6745vhazi.appsync-api.eu-north-1.amazonaws.com/graphql
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } }
 """ # FOR TESTING ONLY!
-type Recipe
-  @model
-  @auth(rules: [{allow: owner, ownerField: "authors"}]) {
+type Recipe @model @auth(rules: [{allow: owner, ownerField: "authors"}]) {
   id: ID!
   name: String!
   category: String
-  image:String
+  image: String
   servings: Int
   ingredients: [Ingredient]!
   prepTime: Int
@@ -21,11 +19,10 @@ type Recipe
   authors: [String]
 }
 
-type List
-  @model
-  @auth(rules: [{allow: owner, ownerField: "authors"}]) {
+type List @model @auth(rules: [{allow: owner, ownerField: "authors"}]) {
   id: ID!
   name: String!
+  recipes: [String]
   ingredients: [ListIngredient]
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
@@ -41,11 +38,8 @@ type Ingredient {
 
 type ListIngredient {
   checked: String!
-  name: String!
-  recipe: String
+  number: Int!
   image: String
-  quantity: Int
-  unit: String
+  name: String!
+  quantities: [String]
 }
-
-

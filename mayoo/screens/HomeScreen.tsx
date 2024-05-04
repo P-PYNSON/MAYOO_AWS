@@ -21,7 +21,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
       source={require('../assets/images/background.webp')}
       style={styles.backgroundImage}>
       <ScrollView contentContainerStyle={styles.scrollview}>
-        <TouchableOpacity style={styles.allRecipesView}  onPress={() => navigation.navigate('RecipesList')}>
+        <TouchableOpacity
+          style={styles.allRecipesView}
+          onPress={() => navigation.navigate('RecipesList')}>
           <Text>My recipes</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -29,7 +31,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
           onPress={() => navigation.navigate('CreateRecipe')}>
           <Text>Create new recipe</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.listsView}>
+        <TouchableOpacity
+          style={styles.listsView}
+          onPress={() => navigation.navigate('MyLists')}>
           <Text>My list</Text>
         </TouchableOpacity>
       </ScrollView>

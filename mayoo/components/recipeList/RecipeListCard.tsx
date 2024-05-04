@@ -5,6 +5,7 @@ import {RootStackParamList} from '../../App';
 import {importedRecipe} from '../../types/recipeTypes';
 import ModalTemplate from '../recipe/modals/ModalTemplate';
 import DeleteRecipe from '../recipe/modals/DeleteRecipe';
+import AddToListModal from '../Lists/AddToListModal';
 
 interface HomeScreenProps {
   navigation: NativeStackNavigationProp<RootStackParamList>;
@@ -14,20 +15,14 @@ interface HomeScreenProps {
 const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [showAddToListModal, setAddToListModal] = useState<boolean>(false);
 
   return (
     <View style={styles.main}>
       <TouchableOpacity
         style={styles.recipeView}
         onPress={() => {
-          if (!showOptions) {
-            navigation.navigate('ShowRecipe', {id: recipe.id});
-          } else {
-            setShowOptions(false);
-          }
-        }}
-        onLongPress={() => {
-          setShowOptions(true);
+          setShowOptions(!showOptions);
         }}>
         <Image
           source={
@@ -46,10 +41,18 @@ const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
             <TouchableOpacity
               onPress={() => {
                 setShowOptions(false);
-                setShowDeleteModal(true);
+                navigation.navigate('ShowRecipe', {id: recipe.id});
               }}
-              style={styles.deleteView}>
-              <Text>Delete</Text>
+              style={styles.modifyView}>
+              <Text style={styles.optionsButtonsText}>Show</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setShowOptions(false);
+                setAddToListModal(true);
+              }}
+              style={styles.modifyView}>
+              <Text style={styles.optionsButtonsText}>Add to a list</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
@@ -57,7 +60,15 @@ const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
                 navigation.navigate('UpdateRecipe', {id: recipe.id});
               }}
               style={styles.modifyView}>
-              <Text>Modify</Text>
+              <Text style={styles.optionsButtonsText}>Modify</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setShowOptions(false);
+                setShowDeleteModal(true);
+              }}
+              style={styles.deleteView}>
+              <Text style={styles.optionsButtonsText}>Delete</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -74,6 +85,14 @@ const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
             closeModal={() => {
               setShowDeleteModal(!showDeleteModal);
             }}></DeleteRecipe>
+        </ModalTemplate>
+
+        <ModalTemplate visible={showAddToListModal} onClose={() => {}}>
+          <AddToListModal
+            recipe={recipe}
+            closeModal={() => {
+              setAddToListModal(false);
+            }}></AddToListModal>
         </ModalTemplate>
       </TouchableOpacity>
     </View>
@@ -109,15 +128,17 @@ const styles = StyleSheet.create({
     marginTop: 5,
     width: '100%',
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     gap: 5,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#e3e3e3',
+    paddingVertical: 10,
   },
   deleteView: {
     padding: 10,
     borderRadius: 10,
-    width: '40%',
+    width: '80%',
     backgroundColor: '#f95959',
     display: 'flex',
     justifyContent: 'center',
@@ -126,12 +147,13 @@ const styles = StyleSheet.create({
   modifyView: {
     padding: 10,
     borderRadius: 10,
-    width: '40%',
+    width: '80%',
     backgroundColor: '#79c2d0',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
+  optionsButtonsText: {fontWeight: 'bold', fontSize: 18, color: 'white'},
 });
 
 export default RecipesListCard;
