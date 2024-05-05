@@ -31,9 +31,9 @@ const MyLists: React.FC<HomeScreenProps> = ({navigation}) => {
       const listsList: GraphQLResult<any> = await client.graphql({
         query: listLists,
       });
-      setListsList(listsList.data.listRecipes.items);
+      setListsList(listsList.data.listLists.items);
       setDataLoading(false);
-      console.log(listsList.data.listRecipes.items[0]);
+      console.log(listsList.data.listLists.items);
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +51,16 @@ const MyLists: React.FC<HomeScreenProps> = ({navigation}) => {
       {dataLoading && <ActivityIndicator size={'large'}></ActivityIndicator>}
       <View style={styles.mainView}>
         {listsList.length > 0 &&
-          listsList.map((list: importedList, index: number) => <View></View>)}
+          listsList.map((list: importedList, index: number) => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('ShowList', {routeList: list});
+              }}
+              style={styles.listCard}
+              key={index}>
+              <Text>{list.name}</Text>
+            </TouchableOpacity>
+          ))}
       </View>
     </ScrollView>
   );
@@ -60,7 +69,6 @@ const MyLists: React.FC<HomeScreenProps> = ({navigation}) => {
 const styles = StyleSheet.create({
   main: {
     width: '100%',
-    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -72,44 +80,16 @@ const styles = StyleSheet.create({
     gap: 20,
     marginTop: 30,
     position: 'relative',
+    padding: 10,
   },
-  recipeView: {
+  listCard: {
     width: '100%',
     display: 'flex',
-    flexDirection: 'row',
-    position: 'relative',
     justifyContent: 'center',
-    elevation: 20,
-  },
-  recipeImage: {width: '100%', height: 100},
-  textView: {
-    position: 'absolute',
-    width: '70%',
-    marginTop: 10,
-    padding: 10,
-    borderRadius: 20,
-    display: 'flex',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-  },
-  textViewText: {fontSize: 20, color: 'black'},
-  buttonView: {
-    position: 'absolute',
+    height: 50,
     backgroundColor: 'white',
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  deleteView: {
-    padding: 10,
     borderRadius: 10,
-    width: '70%',
-    backgroundColor: '#f95959',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 

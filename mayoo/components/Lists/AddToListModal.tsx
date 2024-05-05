@@ -21,6 +21,7 @@ import {updateList} from '../../src/graphql/mutations';
 import ModalTemplate from '../recipe/modals/ModalTemplate';
 import ListSavingSuccess from '../recipe/modals/ListSavingSuccess';
 import ListSavingFailed from '../recipe/modals/ListSavingFailed';
+import AddToListCard from './AddToListCard';
 const client = generateClient();
 
 interface AddToListModalProps {
@@ -35,7 +36,7 @@ const AddToListModal = ({closeModal, recipe}: AddToListModalProps) => {
   const [savingListResult, setSavingListResult] = useState<string>('');
   const [showCreateListInput, setShowCreateListInput] =
     useState<boolean>(false);
-
+ 
   const getListOfLists = async () => {
     setDataLoading(true);
     try {
@@ -129,19 +130,9 @@ const AddToListModal = ({closeModal, recipe}: AddToListModalProps) => {
         <View style={styles.mainbix}>
           <Text style={styles.title}>Add recipe to a list</Text>
           {!savingList && (
-            <ScrollView contentContainerStyle={styles.listsScrollView}>
+            <ScrollView style={styles.listsScrollView} contentContainerStyle={styles.listsScrollViewContainer}>
               {recipesList.map((list: importedList, index) => (
-                <TouchableOpacity
-                  style={styles.listCard}
-                  key={index}
-                  onPress={() => {
-                    addRecipeToList(list, recipe);
-                  }}>
-                  <Text style={styles.listCardText}>{list.name}</Text>
-                  {list.recipes && list.recipes.includes(recipe.name) && (
-                    <Text>added</Text>
-                  )}
-                </TouchableOpacity>
+               <AddToListCard key={index} list={list} recipe={recipe} addRecipeToList={()=> addRecipeToList(list, recipe)}></AddToListCard>
               ))}
             </ScrollView>
           )}
@@ -213,27 +204,17 @@ const styles = StyleSheet.create({
   },
   title: {fontSize: 22},
   listsScrollView: {
-    padding: 10,
     marginVertical: 10,
-    gap: 5,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     width: 300,
-    height: '65%',
+    height: '70%',
   },
-  listCard: {
-    width: '100%',
-    backgroundColor: 'white',
-    display: 'flex',
+  listsScrollViewContainer: {
+    padding: 10,
+    gap: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 5,
-    borderRadius: 50,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
   },
-  listCardText: {fontSize: 20},
+  
   createListButton: {
     padding: 10,
     borderRadius: 10,

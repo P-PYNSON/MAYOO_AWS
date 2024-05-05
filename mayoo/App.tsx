@@ -19,6 +19,8 @@ import RecipesList from './screens/RecipesList';
 import ShowRecipe from './screens/ShowRecipe';
 import UpdateRecipe from './screens/UpdateRecipe';
 import MyLists from './screens/MyLists';
+import ShowList from './screens/ShowList';
+import {importedList} from './types/listsTypes';
 
 export type RootStackParamList = {
   SignIn: {redirectScreen: string};
@@ -29,6 +31,7 @@ export type RootStackParamList = {
   UpdateRecipe: {id: string};
   RecipesList: undefined;
   MyLists: undefined;
+  ShowList: {routeList: importedList};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -73,6 +76,11 @@ function App(): React.JSX.Element {
               name="MyLists"
               component={MyLists}
               options={{title: 'My Food Lists 🛒'}}
+            />
+            <Stack.Screen
+              name="ShowList"
+              component={ShowList}
+              options={{title: 'List'}}
             />
           </Stack.Navigator>
         </NavigationContainer>
