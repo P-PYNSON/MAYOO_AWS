@@ -29,6 +29,20 @@ type List @model @auth(rules: [{allow: owner, ownerField: "authors"}]) {
   authors: [String]
 }
 
+type friendRequest @model @auth(rules: [{allow: owner, ownerField: "author"}]) {
+  id: ID!
+  token: String!
+  targetEmail: String!
+  author: String
+}
+
+type friendList @model @auth(rules: [{allow: owner, ownerField: "author"}]) {
+  id: ID!
+  friendId: String!
+  friendEmail: String!
+  author: String
+}
+
 type Ingredient {
   image: String
   name: String!

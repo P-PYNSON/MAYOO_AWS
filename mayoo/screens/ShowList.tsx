@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -17,6 +18,8 @@ import {getList} from '../src/graphql/queries';
 import ModalTemplate from '../components/recipe/modals/ModalTemplate';
 import DeleteRecipe from '../components/recipe/modals/DeleteRecipe';
 import DeleteList from '../components/recipe/modals/DeleteList';
+import AddIngredientsToList from '../components/Lists/AddIngredientsToList';
+import {Ingredient} from '../types/recipeTypes';
 
 const client = generateClient();
 
@@ -89,6 +92,63 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
     }
   };
 
+  const addIngredient = async (ingredient: Ingredient) => {
+    console.log('ingredient:', ingredient);
+
+    let ingredientArray = [...list.ingredients].map((ingredient: any) => {
+      // Create a new object without "__typename" field
+      const {__typename, ...rest} = ingredient;
+      return rest;
+    });
+
+    const ingredientToAdd: ListIngredient = {
+      checked: 'false',
+      number: 1,
+      image: ingredient.image,
+      name: ingredient.name,
+      quantities: [ingredient.quantity + ' ' + ingredient.unit],
+    };
+
+    /* Check if ingredient already exist to raise quantities instead of adding it */
+    let objToUpdate: ListIngredient | undefined = ingredientArray.find(
+      item => item.name === ingredient.name,
+    );
+    if (objToUpdate) {
+      objToUpdate.checked = 'false';
+      objToUpdate.number = objToUpdate.number + 1;
+      objToUpdate.quantities.push(ingredient.quantity + ' ' + ingredient.unit);
+    } else {
+      ingredientArray.push(ingredientToAdd);
+    }
+    try {
+      const updatedList = await client.graphql({
+        query: updateList,
+        variables: {
+          input: {
+            id: list.id,
+            ingredients: ingredientArray,
+          },
+        },
+      });
+      if (updatedList instanceof Observable) {
+        updatedList.subscribe({
+          next: response => {
+            console.log(response.data.updateList.ingredients);
+            setList(response.data.updateList);
+          },
+          error: error => {
+            console.error(error);
+          },
+        });
+      } else {
+        console.log(updatedList.data.updateList.ingredients);
+        setList(updatedList.data.updateList);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <ScrollView
       contentContainerStyle={styles.mainContentContainer}
@@ -96,6 +156,8 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
       <Text style={styles.listName} numberOfLines={1} ellipsizeMode="tail">
         {list.name}
       </Text>
+
+      {/* Ingredient cards */}
       <View style={styles.recipesView}>
         {list.ingredients.map((ingredient: ListIngredient, index: number) => (
           <View
@@ -108,7 +170,7 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
             {ingredient.checked == 'true' && (
               <View style={styles.horizontalLine} />
             )}
-
+            {/* Check Button */}
             <TouchableOpacity
               style={styles.checkButton}
               onPress={() => {
@@ -125,17 +187,22 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
           </View>
         ))}
       </View>
+
+      {/* Add ingredients */}
+      <View style={styles.addIngredientView}>
+        <AddIngredientsToList
+          addIngredientToList={addIngredient}></AddIngredientsToList>
+      </View>
+
+      {/* Delete Button */}
       <TouchableOpacity
         onPress={() => setShowDeleteModal(true)}
         style={styles.deleteButton}>
         <Text style={styles.deleteButtonText}>DELETE LIST</Text>
       </TouchableOpacity>
 
-      <ModalTemplate
-        visible={showDeleteModal}
-        onClose={() => {
-          /* recipeData(); */
-        }}>
+      {/* Modals*/}
+      <ModalTemplate visible={showDeleteModal} onClose={() => {}}>
         <DeleteList
           listName={list.name}
           ListId={list.id}
@@ -219,6 +286,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: '#cbf078',
   },
+  addIngredientView: {width: '100%', marginTop: 30},
   deleteButton: {},
   deleteButtonText: {
     marginTop: 30,
