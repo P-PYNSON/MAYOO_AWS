@@ -12,7 +12,7 @@ import {RootStackParamList} from '../App';
 import {RouteProp} from '@react-navigation/native';
 import IngredientsBoxUnmodifiable from '../components/ShowRecipe/IngredientsBoxUnmodifiable';
 import {GraphQLResult, generateClient} from 'aws-amplify/api';
-import { getRecipe} from '../src/graphql/queries';
+import {getRecipe} from '../src/graphql/queries';
 import {importedRecipe} from '../types/recipeTypes';
 import InstructionsUnmodifiable from '../components/ShowRecipe/InstructionsUnmodifiable';
 
@@ -28,7 +28,6 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
   const [recipe, setRecipe] = useState<importedRecipe>();
   const [dataLoading, setDataLoading] = useState<boolean>(true);
 
-
   useEffect(() => {
     const recipeData = async () => {
       try {
@@ -41,6 +40,13 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
         console.log('recipe loaded');
         setRecipe(newRecipe.data.getRecipe);
         setDataLoading(false);
+        fetch(newRecipe.data.getRecipe.image)
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+          });
       } catch (error) {
         console.log(error);
       }
@@ -56,7 +62,7 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
         <View style={styles.mainView}>
           <Image
             source={
-              recipe.image == null
+              !recipe.image || recipe.image === 'undefined'
                 ? require('../assets/images/background.webp')
                 : {uri: recipe.image}
             }
@@ -84,7 +90,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 30
+    paddingVertical: 30,
   },
   mainView: {
     width: '90%',

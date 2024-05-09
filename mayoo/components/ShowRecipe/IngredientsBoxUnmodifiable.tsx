@@ -30,7 +30,7 @@ export default function IngredientsBoxUnmodifiable({
                 }}
               />
               <Text
-                style={{fontSize:14}}
+                style={styles.ingredientNameText}
                 textBreakStrategy="balanced">
                 {ingredient.name}
               </Text>
@@ -74,12 +74,15 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '25%',
     elevation: 20,
-    borderWidth: 1,
     borderColor: 'gray',
+    backgroundColor: 'white',
+    borderRadius: 5,
+    minWidth: '25%',
+    maxWidth: '40%',
   },
   ingredient: {
+    borderRadius: 50,
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
@@ -87,5 +90,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
   },
+  ingredientNameText: {textAlign:'center'},
   textView: {display: 'flex', flexDirection: 'row', gap: 5},
 });

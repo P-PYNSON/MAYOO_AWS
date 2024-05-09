@@ -44,8 +44,8 @@ export default function RecipeIngredients({
 
   //call to spoonacular api with delay to reduce calls and minimum string size
   async function fetchSpoonHandler(text: string) {
-    clearTimeout(debounceTimer.current);
     setNoResultMessage(false);
+    clearTimeout(debounceTimer.current);
     if (text.length > 2) {
       setIsSpoonFetching(true);
       debounceTimer.current = setTimeout(async () => {

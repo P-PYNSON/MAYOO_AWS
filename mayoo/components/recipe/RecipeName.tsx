@@ -25,8 +25,8 @@ export default function RecipeName({setName, setImage, data}: RecipeNameProps) {
   const handleImagePicker = async () => {
     try {
       const image = await ImagePicker.openPicker({
-        width: 300,
-        height: 400,
+        width: 400,
+        height: 300,
         cropping: true,
         mediaType: 'photo',
         includeBase64: true,

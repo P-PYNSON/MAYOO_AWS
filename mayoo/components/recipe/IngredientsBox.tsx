@@ -22,8 +22,7 @@ export default function IngredientsBox({
   setShowModal,
   setIngredientIndex,
 }: ingredientsBoxProps) {
-    
-  function modifyIngredientOnPressingIt(ingredient: Ingredient, index:number) {
+  function modifyIngredientOnPressingIt(ingredient: Ingredient, index: number) {
     setIngredientIndex(index);
     setSelectedIngredient(ingredient);
     setShowModal(true);
@@ -33,7 +32,7 @@ export default function IngredientsBox({
     <ScrollView contentContainerStyle={styles.main}>
       <View style={styles.box}>
         {ingredients.map((ingredient, index) => (
-          <View  key={index} style={styles.ingredientView}>
+          <View key={index} style={styles.ingredientView}>
             <Pressable
               style={styles.ingredient}
               key={index}
@@ -46,7 +45,11 @@ export default function IngredientsBox({
                   uri: `https://spoonacular.com/cdn/ingredients_250x250/${ingredient.image}`,
                 }}
               />
-              <Text textBreakStrategy="balanced">{ingredient.name}</Text>
+              <Text
+                style={styles.ingredientNameText}
+                textBreakStrategy="balanced">
+                {ingredient.name}
+              </Text>
               <View style={styles.textView}>
                 <Text>{ingredient.quantity}</Text>
                 <Text>{ingredient.unit}</Text>
@@ -81,9 +84,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '25%',
+    minWidth: '25%',
+    maxWidth: '40%',
     elevation: 20,
-    borderWidth: 1,
+    borderRadius: 5,
     borderColor: 'gray',
   },
   ingredient: {
@@ -94,5 +98,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
   },
+  ingredientNameText: {textAlign: 'center'},
   textView: {display: 'flex', flexDirection: 'row', gap: 5},
 });
