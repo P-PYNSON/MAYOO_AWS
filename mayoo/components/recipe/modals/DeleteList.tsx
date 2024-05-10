@@ -28,7 +28,6 @@ const DeleteList = ({closeModal, listName, ListId}: RecipeFailedProps) => {
           },
         },
       });
-      console.log(deletedList);
       navigation.navigate('MyLists');
     } catch (error) {
       console.log(error);

@@ -68,7 +68,7 @@ const UpdateRecipe: React.FC<UpdateRecipeProps> = ({route}) => {
             return rest;
           },
         );
-        console.log(recipeObject.name);
+
         setName(recipeObject.name ? recipeObject.name : undefined);
         setCategory(recipeObject.category ? recipeObject.category : undefined);
         setImage(recipeObject.image ? recipeObject.image : undefined);
@@ -105,7 +105,7 @@ const UpdateRecipe: React.FC<UpdateRecipeProps> = ({route}) => {
           input: recipe,
         },
       });
-      console.log(newRecipe);
+;
       setSavingRecipe(false);
       setShowValidationModal('saved');
     } catch (error) {
@@ -130,7 +130,7 @@ const UpdateRecipe: React.FC<UpdateRecipeProps> = ({route}) => {
           cookTime: cookTime ? parseInt(cookTime) : undefined,
           instructions: instructions,
         };
-        console.log(recipe);
+   
 
         if (imagePath && imagePath != '' && image && image != '') {
           const imageBlob = await fetch(imagePath);
@@ -144,7 +144,7 @@ const UpdateRecipe: React.FC<UpdateRecipeProps> = ({route}) => {
                 contentType: 'image',
               },
             });
-            console.log('Upload result:', result);
+  
           } catch (error) {
             console.log('upload error', error);
           }

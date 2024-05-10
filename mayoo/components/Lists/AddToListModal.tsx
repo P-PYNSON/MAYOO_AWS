@@ -45,7 +45,7 @@ const AddToListModal = ({closeModal, recipe}: AddToListModalProps) => {
       });
       setRecipesList(listOfLists.data.listLists.items);
       setDataLoading(false);
-      console.log(listOfLists.data.listLists.items[0].ingredients);
+
     } catch (error) {
       console.log(error);
     }
@@ -101,7 +101,7 @@ const AddToListModal = ({closeModal, recipe}: AddToListModalProps) => {
           },
         },
       });
-      console.log(newRecipe);
+
       setSavingList(false);
       setSavingListResult('success');
     } catch (error) {
@@ -109,11 +109,11 @@ const AddToListModal = ({closeModal, recipe}: AddToListModalProps) => {
       setSavingList(false);
       setSavingListResult('error');
     }
-    console.log(listIngredients);
+
   };
 
   useEffect(() => {
-    /*  console.log(recipe.ingredients); */
+
     getListOfLists();
   }, [showCreateListInput, savingListResult]);
 

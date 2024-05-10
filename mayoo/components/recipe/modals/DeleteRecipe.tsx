@@ -34,7 +34,6 @@ const DeleteRecipe = ({
           },
         },
       });
-      console.log(newRecipe);
       closeModal();
     } catch (error) {
       console.log(error);

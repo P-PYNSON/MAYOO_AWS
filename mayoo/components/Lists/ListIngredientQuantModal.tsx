@@ -52,7 +52,7 @@ const ListIngredientQuantModal = ({
         //weird interaction with library when no unit selected and default is used. Uses Key instead of value?
         unit: unitSelected == '1' ? 'g' : unitSelected,
       };
-      console.log('ingredient before function:', ingredient);
+    
       addIngredientToList(ingredient);
     } catch (error) {
       console.log(error);
@@ -60,8 +60,7 @@ const ListIngredientQuantModal = ({
   }
 
   useEffect(() => {
-    console.log(selectedIngredient);
-    console.log(ingredientIndex);
+  
   }, [selectedIngredient]);
 
   return (

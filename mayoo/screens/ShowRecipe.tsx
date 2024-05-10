@@ -32,8 +32,6 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
 
   const createImageUrl = async () => {
     if (recipe && recipe.image) {
-      console.log('data image', recipe.image);
-
       const getUrlResult = await getUrl({
         key: recipe.image,
         options: {accessLevel: 'private'},
@@ -54,7 +52,7 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
             id: id,
           },
         });
-        console.log('recipe loaded');
+
         setRecipe(newRecipe.data.getRecipe);
         setDataLoading(false);
         fetch(newRecipe.data.getRecipe.image)
@@ -77,13 +75,19 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
       {dataLoading && <ActivityIndicator size={'large'}></ActivityIndicator>}
       {recipe && (
         <View style={styles.mainView}>
-          <Image
-            source={
-              recipeImageUrl == undefined
-                ? require('../assets/images/background.webp')
-                : {uri: recipeImageUrl}
-            }
-            style={styles.recipeImage}></Image>
+          {!recipe.image && (
+            <Image
+              source={require('../assets/images/background.webp')}
+              style={styles.recipeImage}></Image>
+          )}
+          {recipeImageUrl != undefined && (
+            <Image
+              source={{uri: recipeImageUrl}}
+              style={styles.recipeImage}></Image>
+          )}
+          {recipe.image && recipeImageUrl == undefined && (
+            <ActivityIndicator></ActivityIndicator>
+          )}
           <View style={styles.textView}>
             <Text style={styles.textViewText}>{recipe.name}</Text>
           </View>

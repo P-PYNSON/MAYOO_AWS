@@ -4,7 +4,6 @@ export async function fetchSpoon(text:string) {
     try {
       const {accessToken, idToken} = (await fetchAuthSession()).tokens ?? {};    
       if (idToken != undefined) {
-       /*  console.log(idToken.toString()); */
         const response = await fetch(
           `https://fd3gcmobm4.execute-api.eu-north-1.amazonaws.com/dev/spoonacular/${text}`,
           {

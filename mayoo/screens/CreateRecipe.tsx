@@ -45,7 +45,6 @@ export default function CreateRecipe() {
           input: recipe,
         },
       });
-      console.log(newRecipe);
       setSavingRecipe(false);
       setShowValidationModal('saved');
     } catch (error) {
@@ -82,7 +81,6 @@ export default function CreateRecipe() {
                 contentType: 'image',
               },
             });
-            console.log('Upload result:', result);
           } catch (error) {
             console.log('upload error', error);
           }

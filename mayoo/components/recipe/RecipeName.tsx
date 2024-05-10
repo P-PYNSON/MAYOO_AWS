@@ -52,7 +52,12 @@ export default function RecipeName({
           if (uri) {
             setRecipeImageUrl(uri);
             setImagePath(image.path);
-            setImage(`recipes/${image.path}.${image.mime}`);
+            //because the librairy only gives file name on IOS (wut?), lo and behold:
+            const splicedString = image.path
+              .split('/')
+              .filter(item => item !== '');
+            const imageName = splicedString[splicedString.length - 1];
+            setImage(`recipes/${imageName}`);
           }
         } catch (error) {
           console.error(
@@ -68,13 +73,13 @@ export default function RecipeName({
 
   const createImageUrl = async () => {
     if (data.image) {
-      console.log('data image', data.image);
+ 
 
       const getUrlResult = await getUrl({
         key: data.image,
         options: {accessLevel: 'private'},
       });
-      console.log(getUrlResult.url);
+    
       setRecipeImageUrl(String(getUrlResult.url));
     }
   };
@@ -128,7 +133,7 @@ export default function RecipeName({
   useEffect(() => {
     if (recipeId) {
       createImageUrl();
-      console.log('url creation started');
+
     }
   }, [previousImage]);
 

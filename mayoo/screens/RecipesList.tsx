@@ -32,7 +32,7 @@ const RecipesList: React.FC<HomeScreenProps> = ({navigation}) => {
       });
       setRecipesList(recipeList.data.listRecipes.items);
       setDataLoading(false);
-      /* console.log(recipeList.data.listRecipes.items); */
+
     } catch (error) {
       console.log(error);
     }
@@ -41,7 +41,7 @@ const RecipesList: React.FC<HomeScreenProps> = ({navigation}) => {
   useEffect(() => {
     navigation.addListener('focus', () => {
       recipeData();
-      console.log('reloaded');
+
     });
   }, [navigation]);
 

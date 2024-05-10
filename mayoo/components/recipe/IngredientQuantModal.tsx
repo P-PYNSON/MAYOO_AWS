@@ -55,7 +55,7 @@ export default function IngredientQuantModal({
         unit: unitSelected == '1' ? 'g' : unitSelected,
       };
       setIngredients([...ingredients, ingredient]);
-      console.log(ingredients);
+
     } catch (error) {
       console.log(error);
     }
@@ -75,7 +75,7 @@ export default function IngredientQuantModal({
         let ingredientsArray = ingredients;
         ingredientsArray[ingredientIndex] = ingredient;
         setIngredients(ingredientsArray);
-        console.log(ingredients);
+  
       } catch (error) {
         console.log(error);
       }
@@ -84,12 +84,12 @@ export default function IngredientQuantModal({
 
   function removeIngredient() {
     if (ingredientIndex != null) {
-      console.log('remove');
+
       try {
         let ingredientsArray = ingredients;
         ingredientsArray.splice(ingredientIndex, 1);
         setIngredients(ingredientsArray);
-        console.log(ingredients);
+
       } catch (error) {
         console.log(error);
       }
@@ -97,8 +97,7 @@ export default function IngredientQuantModal({
   }
 
   useEffect(() => {
-    console.log(selectedIngredient);
-    console.log(ingredientIndex);
+
   }, [selectedIngredient]);
 
   return (

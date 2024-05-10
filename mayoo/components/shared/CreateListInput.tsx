@@ -32,7 +32,6 @@ const CreateListInput = () => {
           input: {name: name.length > 0 ? name : `${day}/${month}/${year}`},
         },
       });
-      console.log(newList);
       setSavingList(false);
       setValidationMessage('saved');
     } catch (error) {

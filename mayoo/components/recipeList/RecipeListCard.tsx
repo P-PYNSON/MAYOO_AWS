@@ -1,6 +1,6 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {RootStackParamList} from '../../App';
 import {importedRecipe} from '../../types/recipeTypes';
 import ModalTemplate from '../recipe/modals/ModalTemplate';
@@ -21,8 +21,6 @@ const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
 
   const createImageUrl = async () => {
     if (recipe.image) {
-      console.log('data image', recipe.image);
-
       const getUrlResult = await getUrl({
         key: recipe.image,
         options: {accessLevel: 'private'},
@@ -41,13 +39,19 @@ const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
         onPress={() => {
           setShowOptions(!showOptions);
         }}>
-        <Image
-          source={
-            recipeImageUrl == undefined
-              ? require('../../assets/images/background.webp')
-              : {uri: recipeImageUrl}
-          }
-          style={styles.recipeImage}></Image>
+        {!recipe.image && (
+          <Image
+            source={require('../../assets/images/background.webp')}
+            style={styles.recipeImage}></Image>
+        )}
+        {recipeImageUrl != undefined && (
+          <Image
+            source={{uri: recipeImageUrl}}
+            style={styles.recipeImage}></Image>
+        )}
+        {recipe.image && recipeImageUrl == undefined && (
+          <ActivityIndicator></ActivityIndicator>
+        )}
         <View style={styles.textView}>
           <Text style={styles.textViewText}>{recipe.name}</Text>
         </View>

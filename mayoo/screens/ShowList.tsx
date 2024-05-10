@@ -61,7 +61,7 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
       if (newRecipe instanceof Observable) {
         newRecipe.subscribe({
           next: response => {
-            console.log(response.data.updateList.ingredients);
+
             setList(response.data.updateList);
           },
           error: error => {
@@ -69,7 +69,7 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
           },
         });
       } else {
-        console.log(newRecipe.data.updateList.ingredients);
+
         setList(newRecipe.data.updateList);
       }
     } catch (error) {
@@ -85,7 +85,7 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
           id: list.id,
         },
       });
-      console.log('recipe loaded');
+
       setList(updatedList.data.getList);
     } catch (error) {
       console.log(error);
@@ -93,7 +93,7 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
   };
 
   const addIngredient = async (ingredient: Ingredient) => {
-    console.log('ingredient:', ingredient);
+
 
     let ingredientArray: ListIngredient[] = [];
     
@@ -137,7 +137,7 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
       if (updatedList instanceof Observable) {
         updatedList.subscribe({
           next: response => {
-            console.log(response.data.updateList.ingredients);
+  
             setList(response.data.updateList);
           },
           error: error => {
@@ -145,7 +145,7 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
           },
         });
       } else {
-        console.log(updatedList.data.updateList.ingredients);
+
         setList(updatedList.data.updateList);
       }
     } catch (error) {
