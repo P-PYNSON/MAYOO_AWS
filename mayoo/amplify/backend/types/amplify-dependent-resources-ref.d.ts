@@ -29,5 +29,11 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     }
+  },
+  "storage": {
+    "s3Mayoo": {
+      "BucketName": "string",
+      "Region": "string"
+    }
   }
 }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -8,8 +8,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import ImagePicker from 'react-native-image-crop-picker';
+/* import ImagePicker from 'react-native-image-crop-picker'; */
+import ImagePicker from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import RNFS from 'react-native-fs';
+import {uploadData} from 'aws-amplify/storage';
+import {getUrl} from 'aws-amplify/storage';
 
 interface RecipeNameProps {
   setName: (text: string) => void;
@@ -21,16 +25,22 @@ interface RecipeNameProps {
   };
 }
 
+type indentityId = {
+  identityId: string;
+};
+
 export default function RecipeName({setName, setImage, data}: RecipeNameProps) {
-  const handleImagePicker = async () => {
+  const [recipeImageUrl, setRecipeImageUrl] = useState<string | null>();
+  /*   const handleImagePicker = async () => {
     try {
       const image = await ImagePicker.openPicker({
-        width: 400,
-        height: 300,
+        width: 800,
+        height: 600,
         cropping: true,
         mediaType: 'photo',
         includeBase64: true,
       });
+      console.log(image.path);
 
       try {
         if (data.image) {
@@ -46,7 +56,52 @@ export default function RecipeName({setName, setImage, data}: RecipeNameProps) {
     } catch (error) {
       console.log('Error picking image:', error);
     }
+  }; */
+
+  const createImageUrl = async () => {
+    if (data.image) {
+      const getUrlResult = await getUrl({
+        key: data.image,
+      });
+      setRecipeImageUrl(String(getUrlResult.url));
+      console.log(getUrlResult.url);
+    }
   };
+
+  const handleImagePicker = async () => {
+    try {
+      await launchImageLibrary({mediaType: 'photo'}, async response => {
+        if (
+          !response.didCancel &&
+          response.assets &&
+          response.assets.length > 0
+        ) {
+          const uri = response.assets[0].uri;
+          if (uri) {
+            const imageBlob = await fetch(uri);
+            const blob = await imageBlob.blob();
+
+            const result = await uploadData({
+              key: 'album/2024/blob.jpg',
+              data: blob,
+              options: {
+                accessLevel: 'guest',
+                contentType: 'image',
+              },
+            });
+            console.log('Upload result:', result);
+            setImage('album/2024/blob.jpg');
+          }
+        }
+      });
+    } catch (error) {
+      console.log('Error uploading image:', error);
+    }
+  };
+
+  useEffect(() => {
+    createImageUrl();
+  }, [data.image, setImage]);
 
   return (
     <View style={styles.mainView}>
@@ -70,16 +125,16 @@ export default function RecipeName({setName, setImage, data}: RecipeNameProps) {
         }}
         style={styles.imageView}>
         {!data.image && (
-            <View style={styles.imageTextView}>
-              <Text style={styles.imageText}>Add Image</Text>
-            </View>
-          )}
+          <View style={styles.imageTextView}>
+            <Text style={styles.imageText}>Add Image</Text>
+          </View>
+        )}
 
-        {data.image && data.image != '' && (
+        {recipeImageUrl && recipeImageUrl != '' && (
           <Image
             style={styles.image}
             source={{
-              uri: data.image,
+              uri: recipeImageUrl,
             }}></Image>
         )}
       </TouchableOpacity>
@@ -115,7 +170,6 @@ const styles = StyleSheet.create({
     height: '95%',
     backgroundColor: 'black',
     resizeMode: 'cover',
-    
   },
   inputView: {
     width: '90%',

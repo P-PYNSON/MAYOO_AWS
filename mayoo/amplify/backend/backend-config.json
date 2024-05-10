@@ -114,5 +114,12 @@
         }
       ]
     }
+  },
+  "storage": {
+    "s3Mayoo": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    }
   }
 }

@@ -33,6 +33,9 @@
           "s3Key": "amplify-builds/fetchIngredients-65484442337354654962-build.zip"
         },
         "SpoonFetch": {}
+      },
+      "storage": {
+        "s3Mayoo": {}
       }
     }
   }

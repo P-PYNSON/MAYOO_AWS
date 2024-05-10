@@ -1,0 +1,13 @@
+{
+  "resourceName": "s3Mayoo",
+  "policyUUID": "66593025",
+  "bucketName": "mayoos3",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

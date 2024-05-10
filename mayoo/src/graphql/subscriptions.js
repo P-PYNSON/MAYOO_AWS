@@ -139,3 +139,99 @@ export const onDeleteList = /* GraphQL */ `
     }
   }
 `;
+export const onCreateFriendRequest = /* GraphQL */ `
+  subscription OnCreateFriendRequest(
+    $filter: ModelSubscriptionFriendRequestFilterInput
+    $author: String
+  ) {
+    onCreateFriendRequest(filter: $filter, author: $author) {
+      id
+      token
+      targetEmail
+      author
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateFriendRequest = /* GraphQL */ `
+  subscription OnUpdateFriendRequest(
+    $filter: ModelSubscriptionFriendRequestFilterInput
+    $author: String
+  ) {
+    onUpdateFriendRequest(filter: $filter, author: $author) {
+      id
+      token
+      targetEmail
+      author
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteFriendRequest = /* GraphQL */ `
+  subscription OnDeleteFriendRequest(
+    $filter: ModelSubscriptionFriendRequestFilterInput
+    $author: String
+  ) {
+    onDeleteFriendRequest(filter: $filter, author: $author) {
+      id
+      token
+      targetEmail
+      author
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateFriendList = /* GraphQL */ `
+  subscription OnCreateFriendList(
+    $filter: ModelSubscriptionFriendListFilterInput
+    $author: String
+  ) {
+    onCreateFriendList(filter: $filter, author: $author) {
+      id
+      friendId
+      friendEmail
+      author
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateFriendList = /* GraphQL */ `
+  subscription OnUpdateFriendList(
+    $filter: ModelSubscriptionFriendListFilterInput
+    $author: String
+  ) {
+    onUpdateFriendList(filter: $filter, author: $author) {
+      id
+      friendId
+      friendEmail
+      author
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteFriendList = /* GraphQL */ `
+  subscription OnDeleteFriendList(
+    $filter: ModelSubscriptionFriendListFilterInput
+    $author: String
+  ) {
+    onDeleteFriendList(filter: $filter, author: $author) {
+      id
+      friendId
+      friendEmail
+      author
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;

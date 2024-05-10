@@ -157,3 +157,99 @@ export const deleteList = /* GraphQL */ `
     }
   }
 `;
+export const createFriendRequest = /* GraphQL */ `
+  mutation CreateFriendRequest(
+    $input: CreateFriendRequestInput!
+    $condition: ModelFriendRequestConditionInput
+  ) {
+    createFriendRequest(input: $input, condition: $condition) {
+      id
+      token
+      targetEmail
+      author
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateFriendRequest = /* GraphQL */ `
+  mutation UpdateFriendRequest(
+    $input: UpdateFriendRequestInput!
+    $condition: ModelFriendRequestConditionInput
+  ) {
+    updateFriendRequest(input: $input, condition: $condition) {
+      id
+      token
+      targetEmail
+      author
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteFriendRequest = /* GraphQL */ `
+  mutation DeleteFriendRequest(
+    $input: DeleteFriendRequestInput!
+    $condition: ModelFriendRequestConditionInput
+  ) {
+    deleteFriendRequest(input: $input, condition: $condition) {
+      id
+      token
+      targetEmail
+      author
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createFriendList = /* GraphQL */ `
+  mutation CreateFriendList(
+    $input: CreateFriendListInput!
+    $condition: ModelFriendListConditionInput
+  ) {
+    createFriendList(input: $input, condition: $condition) {
+      id
+      friendId
+      friendEmail
+      author
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateFriendList = /* GraphQL */ `
+  mutation UpdateFriendList(
+    $input: UpdateFriendListInput!
+    $condition: ModelFriendListConditionInput
+  ) {
+    updateFriendList(input: $input, condition: $condition) {
+      id
+      friendId
+      friendEmail
+      author
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteFriendList = /* GraphQL */ `
+  mutation DeleteFriendList(
+    $input: DeleteFriendListInput!
+    $condition: ModelFriendListConditionInput
+  ) {
+    deleteFriendList(input: $input, condition: $condition) {
+      id
+      friendId
+      friendEmail
+      author
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
