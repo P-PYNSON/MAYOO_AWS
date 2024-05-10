@@ -39,6 +39,13 @@ export const listRecipes = /* GraphQL */ `
         category
         image
         servings
+        ingredients {
+          image
+          name
+          quantity
+          unit
+          __typename
+        }
         prepTime
         cookTime
         instructions
@@ -84,6 +91,14 @@ export const listLists = /* GraphQL */ `
         id
         name
         recipes
+        ingredients {
+          checked
+          number
+          image
+          name
+          quantities
+          __typename
+        }
         createdAt
         updatedAt
         authors

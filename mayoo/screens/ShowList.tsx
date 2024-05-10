@@ -95,11 +95,15 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
   const addIngredient = async (ingredient: Ingredient) => {
     console.log('ingredient:', ingredient);
 
-    let ingredientArray = [...list.ingredients].map((ingredient: any) => {
-      // Create a new object without "__typename" field
-      const {__typename, ...rest} = ingredient;
-      return rest;
-    });
+    let ingredientArray: ListIngredient[] = [];
+    
+    if (list.ingredients && list.ingredients.length > 0) {
+      ingredientArray = [...list.ingredients].map((ingredient: any) => {
+        // Create a new object without "__typename" field
+        const {__typename, ...rest} = ingredient;
+        return rest;
+      });
+    }
 
     const ingredientToAdd: ListIngredient = {
       checked: 'false',
@@ -159,33 +163,34 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
 
       {/* Ingredient cards */}
       <View style={styles.recipesView}>
-        {list.ingredients.map((ingredient: ListIngredient, index: number) => (
-          <View
-            key={index}
-            style={
-              ingredient.checked == 'true'
-                ? styles.ingredientsViewChecked
-                : styles.ingredientsViewUnchecked
-            }>
-            {ingredient.checked == 'true' && (
-              <View style={styles.horizontalLine} />
-            )}
-            {/* Check Button */}
-            <TouchableOpacity
-              style={styles.checkButton}
-              onPress={() => {
-                checkIngredient(index);
-              }}>
-              <View
-                style={
-                  ingredient.checked == 'true'
-                    ? styles.circleFull
-                    : styles.circleEmpty
-                }></View>
-            </TouchableOpacity>
-            <ListItemCard ingredient={ingredient}></ListItemCard>
-          </View>
-        ))}
+        {list.ingredients &&
+          list.ingredients.map((ingredient: ListIngredient, index: number) => (
+            <View
+              key={index}
+              style={
+                ingredient.checked == 'true'
+                  ? styles.ingredientsViewChecked
+                  : styles.ingredientsViewUnchecked
+              }>
+              {ingredient.checked == 'true' && (
+                <View style={styles.horizontalLine} />
+              )}
+              {/* Check Button */}
+              <TouchableOpacity
+                style={styles.checkButton}
+                onPress={() => {
+                  checkIngredient(index);
+                }}>
+                <View
+                  style={
+                    ingredient.checked == 'true'
+                      ? styles.circleFull
+                      : styles.circleEmpty
+                  }></View>
+              </TouchableOpacity>
+              <ListItemCard ingredient={ingredient}></ListItemCard>
+            </View>
+          ))}
       </View>
 
       {/* Add ingredients */}
