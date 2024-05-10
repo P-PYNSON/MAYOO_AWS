@@ -15,6 +15,7 @@ import {GraphQLResult, generateClient} from 'aws-amplify/api';
 import {getRecipe} from '../src/graphql/queries';
 import {importedRecipe} from '../types/recipeTypes';
 import InstructionsUnmodifiable from '../components/ShowRecipe/InstructionsUnmodifiable';
+import {getUrl} from 'aws-amplify/storage';
 
 const client = generateClient();
 
@@ -27,6 +28,22 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
 
   const [recipe, setRecipe] = useState<importedRecipe>();
   const [dataLoading, setDataLoading] = useState<boolean>(true);
+  const [recipeImageUrl, setRecipeImageUrl] = useState<string>();
+
+  const createImageUrl = async () => {
+    if (recipe && recipe.image) {
+      console.log('data image', recipe.image);
+
+      const getUrlResult = await getUrl({
+        key: recipe.image,
+        options: {accessLevel: 'private'},
+      });
+      setRecipeImageUrl(String(getUrlResult.url));
+    }
+  };
+  useEffect(() => {
+    createImageUrl();
+  }, [recipe]);
 
   useEffect(() => {
     const recipeData = async () => {
@@ -62,9 +79,9 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
         <View style={styles.mainView}>
           <Image
             source={
-              !recipe.image || recipe.image === 'undefined'
+              recipeImageUrl == undefined
                 ? require('../assets/images/background.webp')
-                : {uri: recipe.image}
+                : {uri: recipeImageUrl}
             }
             style={styles.recipeImage}></Image>
           <View style={styles.textView}>

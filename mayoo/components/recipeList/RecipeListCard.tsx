@@ -1,11 +1,12 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {RootStackParamList} from '../../App';
 import {importedRecipe} from '../../types/recipeTypes';
 import ModalTemplate from '../recipe/modals/ModalTemplate';
 import DeleteRecipe from '../recipe/modals/DeleteRecipe';
 import AddToListModal from '../Lists/AddToListModal';
+import {getUrl} from 'aws-amplify/storage';
 
 interface HomeScreenProps {
   navigation: NativeStackNavigationProp<RootStackParamList>;
@@ -16,6 +17,22 @@ const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [showAddToListModal, setAddToListModal] = useState<boolean>(false);
+  const [recipeImageUrl, setRecipeImageUrl] = useState<string>();
+
+  const createImageUrl = async () => {
+    if (recipe.image) {
+      console.log('data image', recipe.image);
+
+      const getUrlResult = await getUrl({
+        key: recipe.image,
+        options: {accessLevel: 'private'},
+      });
+      setRecipeImageUrl(String(getUrlResult.url));
+    }
+  };
+  useEffect(() => {
+    createImageUrl();
+  }, []);
 
   return (
     <View style={styles.main}>
@@ -26,9 +43,9 @@ const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
         }}>
         <Image
           source={
-            recipe.image == null
+            recipeImageUrl == undefined
               ? require('../../assets/images/background.webp')
-              : {uri: recipe.image}
+              : {uri: recipeImageUrl}
           }
           style={styles.recipeImage}></Image>
         <View style={styles.textView}>

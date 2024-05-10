@@ -19,6 +19,7 @@ import AditionalInfos from '../components/recipe/AditionalInfos';
 import ModalTemplate from '../components/recipe/modals/ModalTemplate';
 import RecipeSaved from '../components/recipe/modals/RecipeSaved';
 import RecipeFailed from '../components/recipe/modals/RecipeFailed';
+import {remove, uploadData} from 'aws-amplify/storage';
 
 const client = generateClient();
 
@@ -26,6 +27,7 @@ export default function CreateRecipe() {
   const [name, setName] = useState<string>('');
   const [category, setCategory] = useState<string | undefined>();
   const [image, setImage] = useState<string | undefined>();
+  const [imagePath, setImagePath] = useState<string | undefined>();
   const [servings, setServings] = useState<string | undefined>();
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [prepTime, setPrepTime] = useState<string | undefined>();
@@ -53,7 +55,7 @@ export default function CreateRecipe() {
     }
   }
 
-  function validateRecipe() {
+  async function validateRecipe() {
     setSavingRecipe(true);
     if (name.length > 2 && ingredients.length > 0) {
       try {
@@ -67,6 +69,24 @@ export default function CreateRecipe() {
           cookTime: cookTime ? parseInt(cookTime) : undefined,
           instructions: instructions,
         };
+
+        if (imagePath && imagePath != '' && image && image != '') {
+          const imageBlob = await fetch(imagePath);
+          const blob = await imageBlob.blob();
+          try {
+            const result = await uploadData({
+              key: image,
+              data: blob,
+              options: {
+                accessLevel: 'private',
+                contentType: 'image',
+              },
+            });
+            console.log('Upload result:', result);
+          } catch (error) {
+            console.log('upload error', error);
+          }
+        }
         saveRecipe(recipe);
       } catch (error) {
         console.log(error);
@@ -87,6 +107,7 @@ export default function CreateRecipe() {
             setName={setName}
             setCategory={setCategory}
             setImage={setImage}
+            setImagePath={setImagePath}
             data={{name, image}}></RecipeName>
 
           <RecipeIngredients

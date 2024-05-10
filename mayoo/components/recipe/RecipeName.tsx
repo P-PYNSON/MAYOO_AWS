@@ -8,17 +8,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-/* import ImagePicker from 'react-native-image-crop-picker'; */
-import ImagePicker from 'react-native-image-picker';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import RNFS from 'react-native-fs';
-import {uploadData} from 'aws-amplify/storage';
+import ImagePicker from 'react-native-image-crop-picker';
 import {getUrl} from 'aws-amplify/storage';
 
 interface RecipeNameProps {
+  recipeId?: string;
+  previousImage?: string;
   setName: (text: string) => void;
   setCategory: (text: string) => void;
   setImage: (text: string) => void;
+  setImagePath: (text: string) => void;
   data: {
     name: string | undefined;
     image: string | undefined;
@@ -29,46 +28,58 @@ type indentityId = {
   identityId: string;
 };
 
-export default function RecipeName({setName, setImage, data}: RecipeNameProps) {
+export default function RecipeName({
+  setName,
+  setImage,
+  data,
+  recipeId,
+  setImagePath,
+  previousImage,
+}: RecipeNameProps) {
   const [recipeImageUrl, setRecipeImageUrl] = useState<string | null>();
-  /*   const handleImagePicker = async () => {
+
+  const handleImagePicker = async () => {
     try {
-      const image = await ImagePicker.openPicker({
+      await ImagePicker.openPicker({
         width: 800,
         height: 600,
         cropping: true,
         mediaType: 'photo',
         includeBase64: true,
-      });
-      console.log(image.path);
-
-      try {
-        if (data.image) {
-          //delete previous image from system for obvious optimisation reasons
-          await RNFS.unlink(data.image);
-          console.log(`File at ${data.image} has been deleted successfully.`);
+      }).then(async image => {
+        try {
+          const uri = `data:${image.mime};base64,${image.data}`;
+          if (uri) {
+            setRecipeImageUrl(uri);
+            setImagePath(image.path);
+            setImage(`recipes/${image.path}.${image.mime}`);
+          }
+        } catch (error) {
+          console.error(
+            `Error setting image name and path ${data.image}:`,
+            error,
+          );
         }
-
-        setImage(image.path);
-      } catch (error) {
-        console.error(`Error deleting file at ${data.image}:`, error);
-      }
+      });
     } catch (error) {
       console.log('Error picking image:', error);
     }
-  }; */
+  };
 
   const createImageUrl = async () => {
     if (data.image) {
+      console.log('data image', data.image);
+
       const getUrlResult = await getUrl({
         key: data.image,
+        options: {accessLevel: 'private'},
       });
-      setRecipeImageUrl(String(getUrlResult.url));
       console.log(getUrlResult.url);
+      setRecipeImageUrl(String(getUrlResult.url));
     }
   };
 
-  const handleImagePicker = async () => {
+  /*   const handleImagePicker = async () => {
     try {
       await launchImageLibrary({mediaType: 'photo'}, async response => {
         if (
@@ -76,32 +87,50 @@ export default function RecipeName({setName, setImage, data}: RecipeNameProps) {
           response.assets &&
           response.assets.length > 0
         ) {
+          const fileName = response.assets[0].fileName;
           const uri = response.assets[0].uri;
           if (uri) {
+            setRecipeImageUrl(uri);
             const imageBlob = await fetch(uri);
             const blob = await imageBlob.blob();
 
             const result = await uploadData({
-              key: 'album/2024/blob.jpg',
+              key: `recipes/2024/${fileName}`,
               data: blob,
               options: {
-                accessLevel: 'guest',
+                accessLevel: 'private',
                 contentType: 'image',
               },
             });
             console.log('Upload result:', result);
-            setImage('album/2024/blob.jpg');
+            setImage(`recipes/2024/${fileName}`);
+
+            if (previouslyUploadedImage) {
+              try {
+                await remove({
+                  key: previouslyUploadedImage,
+                  options: {
+                    accessLevel: 'private', // defaults to `guest` but can be 'private' | 'protected' | 'guest'
+                  },
+                });
+              } catch (error) {
+                console.log('Error ', error);
+              }
+            }
           }
         }
       });
     } catch (error) {
       console.log('Error uploading image:', error);
     }
-  };
+  }; */
 
   useEffect(() => {
-    createImageUrl();
-  }, [data.image, setImage]);
+    if (recipeId) {
+      createImageUrl();
+      console.log('url creation started');
+    }
+  }, [previousImage]);
 
   return (
     <View style={styles.mainView}>
