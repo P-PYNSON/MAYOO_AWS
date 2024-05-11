@@ -30,7 +30,7 @@ const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
   };
   useEffect(() => {
     createImageUrl();
-  }, []);
+  }, [recipe, navigation]);
 
   return (
     <View style={styles.main}>

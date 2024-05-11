@@ -1,19 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {
-  ActivityIndicator,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native';
 import {GraphQLResult, generateClient} from 'aws-amplify/api';
 import {listRecipes, getRecipe} from '../src/graphql/queries';
 import {importedRecipe, newRecipe} from '../types/recipeTypes';
 import {RootStackParamList} from '../App';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import RecipesListCard from '../components/recipeList/RecipeListCard';
+import {
+  deleteRecipeSub,
+  createRecipeSub,
+} from '../functions/graphQL/subscription';
 
 const client = generateClient();
 
@@ -32,16 +28,21 @@ const RecipesList: React.FC<HomeScreenProps> = ({navigation}) => {
       });
       setRecipesList(recipeList.data.listRecipes.items);
       setDataLoading(false);
-
     } catch (error) {
       console.log(error);
     }
   };
 
+  deleteRecipeSub.subscribe({
+    next: ({data}) => {
+      recipeData();
+    },
+    error: error => console.warn(error),
+  });
+
   useEffect(() => {
     navigation.addListener('focus', () => {
       recipeData();
-
     });
   }, [navigation]);
 
