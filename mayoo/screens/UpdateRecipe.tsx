@@ -140,7 +140,7 @@ const UpdateRecipe: React.FC<UpdateRecipeProps> = ({route}) => {
               key: image,
               data: blob,
               options: {
-                accessLevel: 'private',
+                accessLevel: 'guest',
                 contentType: 'image',
               },
             });
@@ -155,7 +155,7 @@ const UpdateRecipe: React.FC<UpdateRecipeProps> = ({route}) => {
             await remove({
               key: previousImage,
               options: {
-                accessLevel: 'private',
+                accessLevel: 'guest',
               },
             });
           } catch (error) {

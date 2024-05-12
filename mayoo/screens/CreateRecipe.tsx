@@ -77,7 +77,7 @@ export default function CreateRecipe() {
               key: image,
               data: blob,
               options: {
-                accessLevel: 'private',
+                accessLevel: 'guest',
                 contentType: 'image',
               },
             });

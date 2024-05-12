@@ -23,7 +23,7 @@ const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
     if (recipe.image) {
       const getUrlResult = await getUrl({
         key: recipe.image,
-        options: {accessLevel: 'private'},
+        options: {accessLevel: 'guest'},
       });
       setRecipeImageUrl(String(getUrlResult.url));
     }

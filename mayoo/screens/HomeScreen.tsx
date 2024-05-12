@@ -10,6 +10,7 @@ import {
 
 import {RootStackParamList} from '../App';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import OptionsScreen from './OptionsScreen';
 
 interface HomeScreenProps {
   navigation: NativeStackNavigationProp<RootStackParamList>;
@@ -21,6 +22,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
       source={require('../assets/images/background.webp')}
       style={styles.backgroundImage}>
       <ScrollView contentContainerStyle={styles.scrollview}>
+        <OptionsScreen></OptionsScreen>
         <TouchableOpacity
           style={styles.allRecipesView}
           onPress={() => navigation.navigate('RecipesList')}>

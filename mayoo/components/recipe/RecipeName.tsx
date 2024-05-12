@@ -77,58 +77,13 @@ export default function RecipeName({
 
       const getUrlResult = await getUrl({
         key: data.image,
-        options: {accessLevel: 'private'},
+        options: {accessLevel: 'guest'},
       });
     
       setRecipeImageUrl(String(getUrlResult.url));
     }
   };
 
-  /*   const handleImagePicker = async () => {
-    try {
-      await launchImageLibrary({mediaType: 'photo'}, async response => {
-        if (
-          !response.didCancel &&
-          response.assets &&
-          response.assets.length > 0
-        ) {
-          const fileName = response.assets[0].fileName;
-          const uri = response.assets[0].uri;
-          if (uri) {
-            setRecipeImageUrl(uri);
-            const imageBlob = await fetch(uri);
-            const blob = await imageBlob.blob();
-
-            const result = await uploadData({
-              key: `recipes/2024/${fileName}`,
-              data: blob,
-              options: {
-                accessLevel: 'private',
-                contentType: 'image',
-              },
-            });
-            console.log('Upload result:', result);
-            setImage(`recipes/2024/${fileName}`);
-
-            if (previouslyUploadedImage) {
-              try {
-                await remove({
-                  key: previouslyUploadedImage,
-                  options: {
-                    accessLevel: 'private', // defaults to `guest` but can be 'private' | 'protected' | 'guest'
-                  },
-                });
-              } catch (error) {
-                console.log('Error ', error);
-              }
-            }
-          }
-        }
-      });
-    } catch (error) {
-      console.log('Error uploading image:', error);
-    }
-  }; */
 
   useEffect(() => {
     if (recipeId) {
