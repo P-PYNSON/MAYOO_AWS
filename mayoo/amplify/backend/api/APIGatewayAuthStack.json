@@ -13,6 +13,9 @@
     },
     "fetchSpoonIngredient": {
       "Type": "String"
+    },
+    "sendEmailApi": {
+      "Type": "String"
     }
   },
   "Conditions": {

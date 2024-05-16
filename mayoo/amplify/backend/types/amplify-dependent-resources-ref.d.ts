@@ -8,6 +8,11 @@ export type AmplifyDependentResourcesAttributes = {
     "mayoo": {
       "GraphQLAPIEndpointOutput": "string",
       "GraphQLAPIIdOutput": "string"
+    },
+    "sendEmailApi": {
+      "ApiId": "string",
+      "ApiName": "string",
+      "RootUrl": "string"
     }
   },
   "auth": {
@@ -23,6 +28,13 @@ export type AmplifyDependentResourcesAttributes = {
   },
   "function": {
     "fetchIngredients": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "sendFriendMail": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

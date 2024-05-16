@@ -18,7 +18,8 @@
       },
       "api": {
         "mayoo": {},
-        "fetchSpoonIngredient": {}
+        "fetchSpoonIngredient": {},
+        "sendEmailApi": {}
       },
       "function": {
         "fetchSpoonAPI": {
@@ -32,7 +33,11 @@
           "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
           "s3Key": "amplify-builds/fetchIngredients-65484442337354654962-build.zip"
         },
-        "SpoonFetch": {}
+        "SpoonFetch": {},
+        "sendFriendMail": {
+          "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
+          "s3Key": "amplify-builds/sendFriendMail-794a5145673233777a69-build.zip"
+        }
       },
       "storage": {
         "s3Mayoo": {}

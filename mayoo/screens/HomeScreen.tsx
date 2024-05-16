@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {
+  Button,
   ImageBackground,
   ScrollView,
   StyleSheet,
@@ -17,12 +18,34 @@ interface HomeScreenProps {
 }
 
 const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
+  async function invokeLambdaFunction() {
+    try {
+      const response = await fetch(
+        `https://jnt22hp2fj.execute-api.eu-north-1.amazonaws.com/dev/sendEmail`,
+        {
+          method: 'POST',
+          body: JSON.stringify({email: 'velwitch@gmail.com', param2: 'value2'}),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      console.log(response);
+    } catch (error) {
+      console.log('lambda error', error);
+    }
+  }
   return (
     <ImageBackground
       source={require('../assets/images/background.webp')}
       style={styles.backgroundImage}>
       <ScrollView contentContainerStyle={styles.scrollview}>
-        <OptionsScreen></OptionsScreen>
+      {/*   <OptionsScreen></OptionsScreen>
+        <Button
+          title="send"
+          onPress={() => {
+            invokeLambdaFunction();
+          }}></Button> */}
         <TouchableOpacity
           style={styles.allRecipesView}
           onPress={() => navigation.navigate('RecipesList')}>
