@@ -149,6 +149,14 @@
           "resourceName": "sendFriendMail"
         }
       ]
+    },
+    "AMPLIFY_function_sendFriendMail_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sendFriendMail"
+        }
+      ]
     }
   },
   "storage": {
