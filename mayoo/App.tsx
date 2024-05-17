@@ -21,6 +21,7 @@ import UpdateRecipe from './screens/UpdateRecipe';
 import MyLists from './screens/MyLists';
 import ShowList from './screens/ShowList';
 import {importedList} from './types/listsTypes';
+import Friends from './screens/Friends';
 
 export type RootStackParamList = {
   SignIn: {redirectScreen: string};
@@ -32,6 +33,7 @@ export type RootStackParamList = {
   RecipesList: undefined;
   MyLists: undefined;
   ShowList: {routeList: importedList};
+  FriendsList: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -80,6 +82,11 @@ function App(): React.JSX.Element {
             <Stack.Screen
               name="ShowList"
               component={ShowList}
+              options={{title: 'List'}}
+            />
+            <Stack.Screen
+              name="FriendsList"
+              component={Friends}
               options={{title: 'List'}}
             />
           </Stack.Navigator>

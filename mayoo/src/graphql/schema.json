@@ -201,7 +201,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "getFriendList",
+          "name" : "getFriends",
           "description" : null,
           "args" : [ {
             "name" : "id",
@@ -219,20 +219,20 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "friendList",
+            "name" : "friends",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listFriendLists",
+          "name" : "listFriends",
           "description" : null,
           "args" : [ {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelFriendListFilterInput",
+              "name" : "ModelFriendsFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -257,7 +257,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelFriendListConnection",
+            "name" : "ModelFriendsConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1583,7 +1583,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "targetEmail",
+          "name" : "firstUserSub",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -1598,13 +1598,47 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "author",
+          "name" : "firstUserName",
           "description" : null,
           "args" : [ ],
           "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "secondUserSub",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "secondUserName",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
           },
           "isDeprecated" : false,
           "deprecationReason" : null
@@ -1706,7 +1740,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "targetEmail",
+          "name" : "firstUserSub",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -1715,7 +1749,43 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "author",
+          "name" : "firstUserName",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "secondUserSub",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "secondUserName",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "createdAt",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "updatedAt",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -1764,7 +1834,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "friendList",
+        "name" : "friends",
         "description" : null,
         "fields" : [ {
           "name" : "id",
@@ -1782,7 +1852,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "friendId",
+          "name" : "friendName",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -1797,7 +1867,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "friendEmail",
+          "name" : "friendSub",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -1859,7 +1929,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "ModelFriendListConnection",
+        "name" : "ModelFriendsConnection",
         "description" : null,
         "fields" : [ {
           "name" : "items",
@@ -1873,7 +1943,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "OBJECT",
-                "name" : "friendList",
+                "name" : "friends",
                 "ofType" : null
               }
             }
@@ -1898,7 +1968,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelFriendListFilterInput",
+        "name" : "ModelFriendsFilterInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -1911,7 +1981,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "friendId",
+          "name" : "friendName",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -1920,7 +1990,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "friendEmail",
+          "name" : "friendSub",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -1938,6 +2008,24 @@
           },
           "defaultValue" : null
         }, {
+          "name" : "createdAt",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "updatedAt",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
           "name" : "and",
           "description" : null,
           "type" : {
@@ -1945,7 +2033,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelFriendListFilterInput",
+              "name" : "ModelFriendsFilterInput",
               "ofType" : null
             }
           },
@@ -1958,7 +2046,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelFriendListFilterInput",
+              "name" : "ModelFriendsFilterInput",
               "ofType" : null
             }
           },
@@ -1968,7 +2056,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelFriendListFilterInput",
+            "name" : "ModelFriendsFilterInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -2278,7 +2366,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "createFriendList",
+          "name" : "createFriends",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -2288,7 +2376,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "CreateFriendListInput",
+                "name" : "CreateFriendsInput",
                 "ofType" : null
               }
             },
@@ -2298,20 +2386,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelFriendListConditionInput",
+              "name" : "ModelFriendsConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "friendList",
+            "name" : "friends",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "updateFriendList",
+          "name" : "updateFriends",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -2321,7 +2409,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "UpdateFriendListInput",
+                "name" : "UpdateFriendsInput",
                 "ofType" : null
               }
             },
@@ -2331,20 +2419,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelFriendListConditionInput",
+              "name" : "ModelFriendsConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "friendList",
+            "name" : "friends",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "deleteFriendList",
+          "name" : "deleteFriends",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -2354,7 +2442,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "DeleteFriendListInput",
+                "name" : "DeleteFriendsInput",
                 "ofType" : null
               }
             },
@@ -2364,14 +2452,14 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelFriendListConditionInput",
+              "name" : "ModelFriendsConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "friendList",
+            "name" : "friends",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -3245,7 +3333,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "targetEmail",
+          "name" : "firstUserSub",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",
@@ -3258,12 +3346,42 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "author",
+          "name" : "firstUserName",
           "description" : null,
           "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "secondUserSub",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "secondUserName",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "String",
+              "ofType" : null
+            }
           },
           "defaultValue" : null
         } ],
@@ -3285,7 +3403,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "targetEmail",
+          "name" : "firstUserSub",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -3294,7 +3412,25 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "author",
+          "name" : "firstUserName",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "secondUserSub",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "secondUserName",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -3337,6 +3473,24 @@
             "ofType" : null
           },
           "defaultValue" : null
+        }, {
+          "name" : "createdAt",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "updatedAt",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -3369,7 +3523,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "targetEmail",
+          "name" : "firstUserSub",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -3378,7 +3532,25 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "author",
+          "name" : "firstUserName",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "secondUserSub",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "secondUserName",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -3414,7 +3586,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "CreateFriendListInput",
+        "name" : "CreateFriendsInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -3427,7 +3599,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "friendId",
+          "name" : "friendName",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",
@@ -3440,7 +3612,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "friendEmail",
+          "name" : "friendSub",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",
@@ -3467,11 +3639,11 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelFriendListConditionInput",
+        "name" : "ModelFriendsConditionInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "friendId",
+          "name" : "friendName",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -3480,7 +3652,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "friendEmail",
+          "name" : "friendSub",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -3505,7 +3677,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelFriendListConditionInput",
+              "name" : "ModelFriendsConditionInput",
               "ofType" : null
             }
           },
@@ -3518,7 +3690,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelFriendListConditionInput",
+              "name" : "ModelFriendsConditionInput",
               "ofType" : null
             }
           },
@@ -3528,7 +3700,25 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelFriendListConditionInput",
+            "name" : "ModelFriendsConditionInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "createdAt",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "updatedAt",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -3538,7 +3728,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "UpdateFriendListInput",
+        "name" : "UpdateFriendsInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -3555,7 +3745,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "friendId",
+          "name" : "friendName",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -3564,7 +3754,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "friendEmail",
+          "name" : "friendSub",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -3587,7 +3777,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "DeleteFriendListInput",
+        "name" : "DeleteFriendsInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -3743,15 +3933,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "author",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -3769,15 +3950,6 @@
             "type" : {
               "kind" : "INPUT_OBJECT",
               "name" : "ModelSubscriptionFriendRequestFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "author",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
               "ofType" : null
             },
             "defaultValue" : null
@@ -3801,15 +3973,6 @@
               "ofType" : null
             },
             "defaultValue" : null
-          }, {
-            "name" : "author",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
@@ -3819,14 +3982,14 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onCreateFriendList",
+          "name" : "onCreateFriends",
           "description" : null,
           "args" : [ {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSubscriptionFriendListFilterInput",
+              "name" : "ModelSubscriptionFriendsFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -3842,20 +4005,20 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "friendList",
+            "name" : "friends",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onUpdateFriendList",
+          "name" : "onUpdateFriends",
           "description" : null,
           "args" : [ {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSubscriptionFriendListFilterInput",
+              "name" : "ModelSubscriptionFriendsFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -3871,20 +4034,20 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "friendList",
+            "name" : "friends",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onDeleteFriendList",
+          "name" : "onDeleteFriends",
           "description" : null,
           "args" : [ {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSubscriptionFriendListFilterInput",
+              "name" : "ModelSubscriptionFriendsFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -3900,7 +4063,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "friendList",
+            "name" : "friends",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -4029,6 +4192,15 @@
               "name" : "ModelSubscriptionRecipeFilterInput",
               "ofType" : null
             }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "authors",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
           },
           "defaultValue" : null
         } ],
@@ -4471,6 +4643,15 @@
             }
           },
           "defaultValue" : null
+        }, {
+          "name" : "authors",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -4499,7 +4680,52 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "targetEmail",
+          "name" : "firstUserSub",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelSubscriptionStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "firstUserName",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelSubscriptionStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "secondUserSub",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelSubscriptionStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "secondUserName",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelSubscriptionStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "createdAt",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelSubscriptionStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "updatedAt",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -4539,7 +4765,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelSubscriptionFriendListFilterInput",
+        "name" : "ModelSubscriptionFriendsFilterInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -4552,7 +4778,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "friendId",
+          "name" : "friendName",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -4561,7 +4787,25 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "friendEmail",
+          "name" : "friendSub",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelSubscriptionStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "createdAt",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelSubscriptionStringInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "updatedAt",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -4577,7 +4821,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSubscriptionFriendListFilterInput",
+              "name" : "ModelSubscriptionFriendsFilterInput",
               "ofType" : null
             }
           },
@@ -4590,9 +4834,18 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelSubscriptionFriendListFilterInput",
+              "name" : "ModelSubscriptionFriendsFilterInput",
               "ofType" : null
             }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "author",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelStringInput",
+            "ofType" : null
           },
           "defaultValue" : null
         } ],
@@ -4600,31 +4853,23 @@
         "enumValues" : null,
         "possibleTypes" : null
       }, {
-        "kind" : "INPUT_OBJECT",
-        "name" : "ModelSubscriptionBooleanInput",
+        "kind" : "ENUM",
+        "name" : "ModelSortDirection",
         "description" : null,
         "fields" : null,
-        "inputFields" : [ {
-          "name" : "ne",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "Boolean",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "eq",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "Boolean",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        } ],
+        "inputFields" : null,
         "interfaces" : null,
-        "enumValues" : null,
+        "enumValues" : [ {
+          "name" : "ASC",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "DESC",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        } ],
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
@@ -4731,6 +4976,78 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
+        "name" : "ModelSubscriptionBooleanInput",
+        "description" : null,
+        "fields" : null,
+        "inputFields" : [ {
+          "name" : "ne",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Boolean",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "eq",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Boolean",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        } ],
+        "interfaces" : null,
+        "enumValues" : null,
+        "possibleTypes" : null
+      }, {
+        "kind" : "INPUT_OBJECT",
+        "name" : "ModelBooleanInput",
+        "description" : null,
+        "fields" : null,
+        "inputFields" : [ {
+          "name" : "ne",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Boolean",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "eq",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Boolean",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "attributeExists",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Boolean",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "attributeType",
+          "description" : null,
+          "type" : {
+            "kind" : "ENUM",
+            "name" : "ModelAttributeTypes",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        } ],
+        "interfaces" : null,
+        "enumValues" : null,
+        "possibleTypes" : null
+      }, {
+        "kind" : "INPUT_OBJECT",
         "name" : "ModelSubscriptionFloatInput",
         "description" : null,
         "fields" : null,
@@ -4830,70 +5147,6 @@
         } ],
         "interfaces" : null,
         "enumValues" : null,
-        "possibleTypes" : null
-      }, {
-        "kind" : "INPUT_OBJECT",
-        "name" : "ModelBooleanInput",
-        "description" : null,
-        "fields" : null,
-        "inputFields" : [ {
-          "name" : "ne",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "Boolean",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "eq",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "Boolean",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "attributeExists",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "Boolean",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "attributeType",
-          "description" : null,
-          "type" : {
-            "kind" : "ENUM",
-            "name" : "ModelAttributeTypes",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        } ],
-        "interfaces" : null,
-        "enumValues" : null,
-        "possibleTypes" : null
-      }, {
-        "kind" : "ENUM",
-        "name" : "ModelSortDirection",
-        "description" : null,
-        "fields" : null,
-        "inputFields" : null,
-        "interfaces" : null,
-        "enumValues" : [ {
-          "name" : "ASC",
-          "description" : null,
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "DESC",
-          "description" : null,
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        } ],
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
@@ -5679,6 +5932,23 @@
         "onFragment" : false,
         "onField" : true
       }, {
+        "name" : "deprecated",
+        "description" : null,
+        "locations" : [ "FIELD_DEFINITION", "ENUM_VALUE" ],
+        "args" : [ {
+          "name" : "reason",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : "\"No longer supported\""
+        } ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
         "name" : "aws_auth",
         "description" : "Directs the schema to enforce authorization on a field",
         "locations" : [ "FIELD_DEFINITION" ],
@@ -5770,23 +6040,6 @@
         "description" : "Tells the service this field/object has access authorized by a Lambda Authorizer.",
         "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
         "args" : [ ],
-        "onOperation" : false,
-        "onFragment" : false,
-        "onField" : false
-      }, {
-        "name" : "deprecated",
-        "description" : null,
-        "locations" : [ "FIELD_DEFINITION", "ENUM_VALUE" ],
-        "args" : [ {
-          "name" : "reason",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : "\"No longer supported\""
-        } ],
         "onOperation" : false,
         "onFragment" : false,
         "onField" : false

@@ -18,34 +18,13 @@ interface HomeScreenProps {
 }
 
 const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
-  async function invokeLambdaFunction() {
-    try {
-      const response = await fetch(
-        `https://jnt22hp2fj.execute-api.eu-north-1.amazonaws.com/dev/sendEmail`,
-        {
-          method: 'POST',
-          body: JSON.stringify({email: 'velwitch@gmail.com', param2: 'value2'}),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      console.log(response);
-    } catch (error) {
-      console.log('lambda error', error);
-    }
-  }
   return (
     <ImageBackground
       source={require('../assets/images/background.webp')}
       style={styles.backgroundImage}>
       <ScrollView contentContainerStyle={styles.scrollview}>
-      {/*   <OptionsScreen></OptionsScreen>
-        <Button
-          title="send"
-          onPress={() => {
-            invokeLambdaFunction();
-          }}></Button> */}
+        {/*   <OptionsScreen></OptionsScreen>
+         */}
         <TouchableOpacity
           style={styles.allRecipesView}
           onPress={() => navigation.navigate('RecipesList')}>
@@ -60,6 +39,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
           style={styles.listsView}
           onPress={() => navigation.navigate('MyLists')}>
           <Text>My list</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.friendsView}
+          onPress={() => navigation.navigate('FriendsList')}>
+          <Text>My friends</Text>
         </TouchableOpacity>
       </ScrollView>
     </ImageBackground>
@@ -80,9 +64,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: 'rgba(255, 255, 255, 1)',
     width: '85%',
-    height: '35%',
+    height: '25%',
     borderRadius: 30,
     elevation: 20,
   },
@@ -90,9 +74,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: 'rgba(255, 255, 255, 1)',
     width: '85%',
-    height: '25%',
+    height: '20%',
     borderRadius: 30,
     elevation: 20,
   },
@@ -100,9 +84,19 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: 'rgba(255, 255, 255, 1)',
     width: '85%',
-    height: '25%',
+    height: '20%',
+    borderRadius: 30,
+    elevation: 20,
+  },
+  friendsView: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 1)',
+    width: '85%',
+    height: '20%',
     borderRadius: 30,
     elevation: 20,
   },

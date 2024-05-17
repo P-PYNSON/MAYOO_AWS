@@ -36,7 +36,7 @@
         "SpoonFetch": {},
         "sendFriendMail": {
           "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
-          "s3Key": "amplify-builds/sendFriendMail-794a5145673233777a69-build.zip"
+          "s3Key": "amplify-builds/sendFriendMail-42484a66696967636962-build.zip"
         }
       },
       "storage": {

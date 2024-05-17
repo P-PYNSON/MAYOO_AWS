@@ -29,17 +29,19 @@ type List @model @auth(rules: [{allow: owner, ownerField: "authors"}]) {
   authors: [String]
 }
 
-type friendRequest @model @auth(rules: [{allow: owner, ownerField: "author"}]) {
+type friendRequest @model {
   id: ID!
   token: String!
-  targetEmail: String!
-  author: String
+  firstUserSub: String!
+  firstUserName: String!
+  secondUserSub: String!
+  secondUserName: String!
 }
 
-type friendList @model @auth(rules: [{allow: owner, ownerField: "author"}]) {
+type friends @model @auth(rules: [{allow: owner, ownerField: "author"}]) {
   id: ID!
-  friendId: String!
-  friendEmail: String!
+  friendName: String!
+  friendSub: String!
   author: String
 }
 
@@ -57,3 +59,4 @@ type ListIngredient {
   name: String!
   quantities: [String]
 }
+

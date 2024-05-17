@@ -142,13 +142,14 @@ export const onDeleteList = /* GraphQL */ `
 export const onCreateFriendRequest = /* GraphQL */ `
   subscription OnCreateFriendRequest(
     $filter: ModelSubscriptionFriendRequestFilterInput
-    $author: String
   ) {
-    onCreateFriendRequest(filter: $filter, author: $author) {
+    onCreateFriendRequest(filter: $filter) {
       id
       token
-      targetEmail
-      author
+      firstUserSub
+      firstUserName
+      secondUserSub
+      secondUserName
       createdAt
       updatedAt
       __typename
@@ -158,13 +159,14 @@ export const onCreateFriendRequest = /* GraphQL */ `
 export const onUpdateFriendRequest = /* GraphQL */ `
   subscription OnUpdateFriendRequest(
     $filter: ModelSubscriptionFriendRequestFilterInput
-    $author: String
   ) {
-    onUpdateFriendRequest(filter: $filter, author: $author) {
+    onUpdateFriendRequest(filter: $filter) {
       id
       token
-      targetEmail
-      author
+      firstUserSub
+      firstUserName
+      secondUserSub
+      secondUserName
       createdAt
       updatedAt
       __typename
@@ -174,12 +176,29 @@ export const onUpdateFriendRequest = /* GraphQL */ `
 export const onDeleteFriendRequest = /* GraphQL */ `
   subscription OnDeleteFriendRequest(
     $filter: ModelSubscriptionFriendRequestFilterInput
-    $author: String
   ) {
-    onDeleteFriendRequest(filter: $filter, author: $author) {
+    onDeleteFriendRequest(filter: $filter) {
       id
       token
-      targetEmail
+      firstUserSub
+      firstUserName
+      secondUserSub
+      secondUserName
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateFriends = /* GraphQL */ `
+  subscription OnCreateFriends(
+    $filter: ModelSubscriptionFriendsFilterInput
+    $author: String
+  ) {
+    onCreateFriends(filter: $filter, author: $author) {
+      id
+      friendName
+      friendSub
       author
       createdAt
       updatedAt
@@ -187,15 +206,15 @@ export const onDeleteFriendRequest = /* GraphQL */ `
     }
   }
 `;
-export const onCreateFriendList = /* GraphQL */ `
-  subscription OnCreateFriendList(
-    $filter: ModelSubscriptionFriendListFilterInput
+export const onUpdateFriends = /* GraphQL */ `
+  subscription OnUpdateFriends(
+    $filter: ModelSubscriptionFriendsFilterInput
     $author: String
   ) {
-    onCreateFriendList(filter: $filter, author: $author) {
+    onUpdateFriends(filter: $filter, author: $author) {
       id
-      friendId
-      friendEmail
+      friendName
+      friendSub
       author
       createdAt
       updatedAt
@@ -203,31 +222,15 @@ export const onCreateFriendList = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateFriendList = /* GraphQL */ `
-  subscription OnUpdateFriendList(
-    $filter: ModelSubscriptionFriendListFilterInput
+export const onDeleteFriends = /* GraphQL */ `
+  subscription OnDeleteFriends(
+    $filter: ModelSubscriptionFriendsFilterInput
     $author: String
   ) {
-    onUpdateFriendList(filter: $filter, author: $author) {
+    onDeleteFriends(filter: $filter, author: $author) {
       id
-      friendId
-      friendEmail
-      author
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteFriendList = /* GraphQL */ `
-  subscription OnDeleteFriendList(
-    $filter: ModelSubscriptionFriendListFilterInput
-    $author: String
-  ) {
-    onDeleteFriendList(filter: $filter, author: $author) {
-      id
-      friendId
-      friendEmail
+      friendName
+      friendSub
       author
       createdAt
       updatedAt

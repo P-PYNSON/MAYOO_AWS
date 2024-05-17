@@ -114,8 +114,10 @@ export const getFriendRequest = /* GraphQL */ `
     getFriendRequest(id: $id) {
       id
       token
-      targetEmail
-      author
+      firstUserSub
+      firstUserName
+      secondUserSub
+      secondUserName
       createdAt
       updatedAt
       __typename
@@ -132,8 +134,10 @@ export const listFriendRequests = /* GraphQL */ `
       items {
         id
         token
-        targetEmail
-        author
+        firstUserSub
+        firstUserName
+        secondUserSub
+        secondUserName
         createdAt
         updatedAt
         __typename
@@ -143,12 +147,12 @@ export const listFriendRequests = /* GraphQL */ `
     }
   }
 `;
-export const getFriendList = /* GraphQL */ `
-  query GetFriendList($id: ID!) {
-    getFriendList(id: $id) {
+export const getFriends = /* GraphQL */ `
+  query GetFriends($id: ID!) {
+    getFriends(id: $id) {
       id
-      friendId
-      friendEmail
+      friendName
+      friendSub
       author
       createdAt
       updatedAt
@@ -156,17 +160,17 @@ export const getFriendList = /* GraphQL */ `
     }
   }
 `;
-export const listFriendLists = /* GraphQL */ `
-  query ListFriendLists(
-    $filter: ModelFriendListFilterInput
+export const listFriends = /* GraphQL */ `
+  query ListFriends(
+    $filter: ModelFriendsFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listFriendLists(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listFriends(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        friendId
-        friendEmail
+        friendName
+        friendSub
         author
         createdAt
         updatedAt

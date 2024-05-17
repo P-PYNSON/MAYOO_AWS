@@ -165,8 +165,10 @@ export const createFriendRequest = /* GraphQL */ `
     createFriendRequest(input: $input, condition: $condition) {
       id
       token
-      targetEmail
-      author
+      firstUserSub
+      firstUserName
+      secondUserSub
+      secondUserName
       createdAt
       updatedAt
       __typename
@@ -181,8 +183,10 @@ export const updateFriendRequest = /* GraphQL */ `
     updateFriendRequest(input: $input, condition: $condition) {
       id
       token
-      targetEmail
-      author
+      firstUserSub
+      firstUserName
+      secondUserSub
+      secondUserName
       createdAt
       updatedAt
       __typename
@@ -197,7 +201,25 @@ export const deleteFriendRequest = /* GraphQL */ `
     deleteFriendRequest(input: $input, condition: $condition) {
       id
       token
-      targetEmail
+      firstUserSub
+      firstUserName
+      secondUserSub
+      secondUserName
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createFriends = /* GraphQL */ `
+  mutation CreateFriends(
+    $input: CreateFriendsInput!
+    $condition: ModelFriendsConditionInput
+  ) {
+    createFriends(input: $input, condition: $condition) {
+      id
+      friendName
+      friendSub
       author
       createdAt
       updatedAt
@@ -205,15 +227,15 @@ export const deleteFriendRequest = /* GraphQL */ `
     }
   }
 `;
-export const createFriendList = /* GraphQL */ `
-  mutation CreateFriendList(
-    $input: CreateFriendListInput!
-    $condition: ModelFriendListConditionInput
+export const updateFriends = /* GraphQL */ `
+  mutation UpdateFriends(
+    $input: UpdateFriendsInput!
+    $condition: ModelFriendsConditionInput
   ) {
-    createFriendList(input: $input, condition: $condition) {
+    updateFriends(input: $input, condition: $condition) {
       id
-      friendId
-      friendEmail
+      friendName
+      friendSub
       author
       createdAt
       updatedAt
@@ -221,31 +243,15 @@ export const createFriendList = /* GraphQL */ `
     }
   }
 `;
-export const updateFriendList = /* GraphQL */ `
-  mutation UpdateFriendList(
-    $input: UpdateFriendListInput!
-    $condition: ModelFriendListConditionInput
+export const deleteFriends = /* GraphQL */ `
+  mutation DeleteFriends(
+    $input: DeleteFriendsInput!
+    $condition: ModelFriendsConditionInput
   ) {
-    updateFriendList(input: $input, condition: $condition) {
+    deleteFriends(input: $input, condition: $condition) {
       id
-      friendId
-      friendEmail
-      author
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const deleteFriendList = /* GraphQL */ `
-  mutation DeleteFriendList(
-    $input: DeleteFriendListInput!
-    $condition: ModelFriendListConditionInput
-  ) {
-    deleteFriendList(input: $input, condition: $condition) {
-      id
-      friendId
-      friendEmail
+      friendName
+      friendSub
       author
       createdAt
       updatedAt

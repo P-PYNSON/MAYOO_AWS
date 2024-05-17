@@ -34,7 +34,7 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
     if (recipe && recipe.image) {
       const getUrlResult = await getUrl({
         key: recipe.image,
-        options: {accessLevel: 'private'},
+        options: {accessLevel: 'guest'},
       });
       setRecipeImageUrl(String(getUrlResult.url));
     }
