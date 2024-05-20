@@ -44,10 +44,47 @@ const Friends = () => {
       );
 
       const responseData = await response.json();
-      const {userName, userSub, userEmail} = responseData;
-      console.log('userName:', userName);
-      console.log('userSub:', userSub);
-      console.log('userEmail:', userEmail);
+      const {message} = responseData;
+      console.log('message:', message);
+    } catch (error) {
+      console.log('lambda error', error);
+    }
+  }
+  async function invokeFriends() {
+    try {
+      const response = await fetch(
+        `https://r7c300pz02.execute-api.eu-north-1.amazonaws.com/dev/addFriends/mijoh421lllwezvx6n/255ecce9add85cec4c2c7665e9f13591`,
+        {
+          method: 'GET',
+        },
+      );
+      const responseData = await response.json();
+      console.log(responseData);
+    } catch (error) {
+      console.log('lambda error', error);
+    }
+  }
+
+  async function deleteFriend(entryId: string) {
+    const {userId} = await getCurrentUser();
+    console.log(entryId, userId);
+    
+    try {
+      const response = await fetch(
+        `https://r7c300pz02.execute-api.eu-north-1.amazonaws.com/dev/delete`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            firstEntryId: entryId,
+            sencondEntryFriendSub: userId,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      const responseData = await response.json();
+      console.log(responseData);
     } catch (error) {
       console.log('lambda error', error);
     }
@@ -61,9 +98,19 @@ const Friends = () => {
     <View>
       {dataLoading && <ActivityIndicator></ActivityIndicator>}
       <Button
-        title="add friend"
+        title="send email"
         onPress={() => {
           invokeLambdaFunction('velwitch@gmail.com');
+        }}></Button>
+      <Button
+        title="add friends"
+        onPress={() => {
+          invokeFriends();
+        }}></Button>
+      <Button
+        title="delete friends"
+        onPress={() => {
+          deleteFriend('mijoh421lllwezvx6n_a');
         }}></Button>
     </View>
   );

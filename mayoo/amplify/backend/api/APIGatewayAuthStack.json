@@ -16,6 +16,9 @@
     },
     "sendEmailApi": {
       "Type": "String"
+    },
+    "linkFriendsAPI": {
+      "Type": "String"
     }
   },
   "Conditions": {

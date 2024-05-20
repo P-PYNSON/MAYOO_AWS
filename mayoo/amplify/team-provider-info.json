@@ -19,7 +19,8 @@
       "api": {
         "mayoo": {},
         "fetchSpoonIngredient": {},
-        "sendEmailApi": {}
+        "sendEmailApi": {},
+        "linkFriendsAPI": {}
       },
       "function": {
         "fetchSpoonAPI": {
@@ -36,8 +37,16 @@
         "SpoonFetch": {},
         "sendFriendMail": {
           "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
-          "s3Key": "amplify-builds/sendFriendMail-6d484f6465734f476a75-build.zip",
+          "s3Key": "amplify-builds/sendFriendMail-6e79796b4b3469777950-build.zip",
           "secretsPathAmplifyAppId": "d1ckmatwe6vg4l"
+        },
+        "linkFriends": {
+          "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
+          "s3Key": "amplify-builds/linkFriends-5942702f4c4965347755-build.zip"
+        },
+        "deleteFriendFunction": {
+          "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
+          "s3Key": "amplify-builds/deleteFriendFunction-52514c6c426c4a795165-build.zip"
         }
       },
       "storage": {

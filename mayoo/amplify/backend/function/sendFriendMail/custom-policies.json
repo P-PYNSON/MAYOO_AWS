@@ -9,6 +9,24 @@
   {
     "Effect": "Allow",
     "Action": ["dynamodb:PutItem"],
-    "Resource": ["arn:aws:dynamodb:eu-north-1:471112831225:table/friendRequest-kaixblblyvanhhrzha4lvottay-dev"]
+    "Resource": [
+      "arn:aws:dynamodb:eu-north-1:471112831225:table/friendRequest-kaixblblyvanhhrzha4lvottay-dev"
+    ]
+  },
+  {
+    "Effect": "Allow",
+    "Action": ["dynamodb:Query", "dynamodb:Scan"],
+    "Resource": [
+      "arn:aws:dynamodb:eu-north-1:471112831225:table/friends-kaixblblyvanhhrzha4lvottay-dev",
+      "arn:aws:dynamodb:eu-north-1:471112831225:table/friends-kaixblblyvanhhrzha4lvottay-dev/index/author-friendSub-index"
+    ]
+  },
+  {
+    "Effect": "Allow",
+    "Action": ["dynamodb:Query", "dynamodb:Scan", "dynamodb:DeleteItem"],
+    "Resource": [
+      "arn:aws:dynamodb:eu-north-1:471112831225:table/friendRequest-kaixblblyvanhhrzha4lvottay-dev",
+      "arn:aws:dynamodb:eu-north-1:471112831225:table/friendRequest-kaixblblyvanhhrzha4lvottay-dev/index/firstUserSub-secondUserSub-index"
+    ]
   }
 ]

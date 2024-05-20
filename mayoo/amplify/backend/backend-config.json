@@ -14,6 +14,28 @@
       "providerPlugin": "awscloudformation",
       "service": "API Gateway"
     },
+    "linkFriendsAPI": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "linkFriends"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "deleteFriendFunction"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "mayoo": {
       "dependsOn": [
         {
@@ -80,7 +102,19 @@
     }
   },
   "function": {
+    "deleteFriendFunction": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "fetchIngredients": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "linkFriends": {
       "build": true,
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
@@ -99,6 +133,22 @@
         {
           "category": "function",
           "resourceName": "SpoonFunctions"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteFriendFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteFriendFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteFriendFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteFriendFunction"
         }
       ]
     },
@@ -131,6 +181,22 @@
         {
           "category": "function",
           "resourceName": "fetchSpoonAPI"
+        }
+      ]
+    },
+    "AMPLIFY_function_linkFriends_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "linkFriends"
+        }
+      ]
+    },
+    "AMPLIFY_function_linkFriends_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "linkFriends"
         }
       ]
     },

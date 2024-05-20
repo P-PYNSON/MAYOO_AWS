@@ -15,9 +15,6 @@
     },
     "s3Key": {
       "Type": "String"
-    },
-    "secretsPathAmplifyAppId": {
-      "Type": "String"
     }
   },
   "Conditions": {
@@ -50,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "sendFriendMail",
+            "linkFriends",
             {
               "Fn::Join": [
                 "",
                 [
-                  "sendFriendMail",
+                  "linkFriends",
                   "-",
                   {
                     "Ref": "env"
@@ -72,28 +69,6 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
-            },
-            "smtpPass": {
-              "Fn::Join": [
-                "",
-                [
-                  {
-                    "Fn::Sub": [
-                      "/amplify/${appId}/${env}/AMPLIFY_${functionName}_",
-                      {
-                        "appId": {
-                          "Ref": "secretsPathAmplifyAppId"
-                        },
-                        "env": {
-                          "Ref": "env"
-                        },
-                        "functionName": "sendFriendMail"
-                      }
-                    ]
-                  },
-                  "smtpPass"
-                ]
-              ]
             }
           }
         },
@@ -114,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "mayooLambdaRole3e431eb2",
+            "mayooLambdaRole909f3f4c",
             {
               "Fn::Join": [
                 "",
                 [
-                  "mayooLambdaRole3e431eb2",
+                  "mayooLambdaRole909f3f4c",
                   "-",
                   {
                     "Ref": "env"
@@ -200,16 +175,8 @@
             {
               "Effect": "Allow",
               "Action": [
-                "cognito-idp:ListUsers"
-              ],
-              "Resource": [
-                "arn:aws:cognito-idp:eu-north-1:471112831225:userpool/eu-north-1_fQKnu5QYn"
-              ]
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
-                "dynamodb:PutItem"
+                "dynamodb:GetItem",
+                "dynamodb:DeleteItem"
               ],
               "Resource": [
                 "arn:aws:dynamodb:eu-north-1:471112831225:table/friendRequest-kaixblblyvanhhrzha4lvottay-dev"
@@ -218,24 +185,19 @@
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:Query",
-                "dynamodb:Scan"
+                "dynamodb:DeleteItem"
               ],
               "Resource": [
-                "arn:aws:dynamodb:eu-north-1:471112831225:table/friends-kaixblblyvanhhrzha4lvottay-dev",
-                "arn:aws:dynamodb:eu-north-1:471112831225:table/friends-kaixblblyvanhhrzha4lvottay-dev/index/author-friendSub-index"
+                "arn:aws:dynamodb:eu-north-1:471112831225:table/friendRequest-kaixblblyvanhhrzha4lvottay-dev"
               ]
             },
             {
               "Effect": "Allow",
               "Action": [
-                "dynamodb:Query",
-                "dynamodb:Scan",
-                "dynamodb:DeleteItem"
+                "dynamodb:PutItem"
               ],
               "Resource": [
-                "arn:aws:dynamodb:eu-north-1:471112831225:table/friendRequest-kaixblblyvanhhrzha4lvottay-dev",
-                "arn:aws:dynamodb:eu-north-1:471112831225:table/friendRequest-kaixblblyvanhhrzha4lvottay-dev/index/firstUserSub-secondUserSub-index"
+                "arn:aws:dynamodb:eu-north-1:471112831225:table/friends-kaixblblyvanhhrzha4lvottay-dev"
               ]
             }
           ]
@@ -247,63 +209,6 @@
         ]
       },
       "DependsOn": "LambdaExecutionRole"
-    },
-    "AmplifyFunctionSecretsPolicy": {
-      "Type": "AWS::IAM::Policy",
-      "Properties": {
-        "PolicyName": "amplify-function-secrets-policy",
-        "Roles": [
-          {
-            "Ref": "LambdaExecutionRole"
-          }
-        ],
-        "PolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Action": [
-                "ssm:GetParameter",
-                "ssm:GetParameters"
-              ],
-              "Resource": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:aws:ssm:",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    ":",
-                    {
-                      "Ref": "AWS::AccountId"
-                    },
-                    ":parameter",
-                    {
-                      "Fn::Sub": [
-                        "/amplify/${appId}/${env}/AMPLIFY_${functionName}_",
-                        {
-                          "appId": {
-                            "Ref": "secretsPathAmplifyAppId"
-                          },
-                          "env": {
-                            "Ref": "env"
-                          },
-                          "functionName": "sendFriendMail"
-                        }
-                      ]
-                    },
-                    "*"
-                  ]
-                ]
-              }
-            }
-          ]
-        }
-      },
-      "DependsOn": [
-        "LambdaExecutionRole"
-      ]
     }
   },
   "Outputs": {

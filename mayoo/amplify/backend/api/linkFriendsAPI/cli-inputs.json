@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "paths": {
+    "/addFriends/{requestid}/{token}": {
+      "name": "/addFriends/{requestid}/{token}",
+      "lambdaFunction": "linkFriends",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/delete": {
+      "name": "/delete",
+      "lambdaFunction": "deleteFriendFunction",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

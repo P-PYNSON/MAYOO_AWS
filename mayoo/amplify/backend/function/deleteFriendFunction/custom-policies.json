@@ -1,0 +1,17 @@
+[
+  {
+    "Effect": "Allow",
+    "Action": ["dynamodb:DeleteItem","dynamodb:GetItem"],
+    "Resource": [
+      "arn:aws:dynamodb:eu-north-1:471112831225:table/friends-kaixblblyvanhhrzha4lvottay-dev"
+    ]
+  },
+  {
+    "Effect": "Allow",
+    "Action": ["dynamodb:Query", "dynamodb:Scan"],
+    "Resource": [
+      "arn:aws:dynamodb:eu-north-1:471112831225:table/friends-kaixblblyvanhhrzha4lvottay-dev",
+      "arn:aws:dynamodb:eu-north-1:471112831225:table/friends-kaixblblyvanhhrzha4lvottay-dev/index/author-friendSub-index"
+    ]
+  }
+]
