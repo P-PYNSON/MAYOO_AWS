@@ -5,6 +5,7 @@ export type importedList = {
   ingredients: [ListIngredient];
   createAt: string;
   updateAt: string;
+  authors: string[];
 };
 
 export type ListIngredient = {

@@ -1,15 +1,26 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Button, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import {GraphQLResult, generateClient} from 'aws-amplify/api';
 import {listFriends} from '../src/graphql/queries';
 import {importedFriends} from '../types/friendsTypes';
 import {getCurrentUser} from 'aws-amplify/auth';
+import FriendCard from '../components/friends/FriendCard';
 
 const client = generateClient();
 
 const Friends = () => {
+  const [email, setEmail] = useState<string>();
+  const [message, setMessage] = useState<string>();
   const [friendList, setFriendList] = useState<importedFriends[]>([]);
   const [dataLoading, setDataLoading] = useState<boolean>(true);
+  const [requestLoading, setRequestLoading] = useState<boolean>(false);
 
   const fetchFriendsList = async () => {
     try {
@@ -27,6 +38,7 @@ const Friends = () => {
 
   async function invokeLambdaFunction(email: string) {
     try {
+      setRequestLoading(true);
       const {username, userId} = await getCurrentUser();
       const response = await fetch(
         `https://jnt22hp2fj.execute-api.eu-north-1.amazonaws.com/dev/sendEmail`,
@@ -46,8 +58,11 @@ const Friends = () => {
       const responseData = await response.json();
       const {message} = responseData;
       console.log('message:', message);
+      setMessage(message);
+      setRequestLoading(false);
     } catch (error) {
       console.log('lambda error', error);
+      setRequestLoading(false);
     }
   }
   async function invokeFriends() {
@@ -65,44 +80,45 @@ const Friends = () => {
     }
   }
 
-  async function deleteFriend(entryId: string) {
-    const {userId} = await getCurrentUser();
-    console.log(entryId, userId);
-    
-    try {
-      const response = await fetch(
-        `https://r7c300pz02.execute-api.eu-north-1.amazonaws.com/dev/delete`,
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            firstEntryId: entryId,
-            sencondEntryFriendSub: userId,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      const responseData = await response.json();
-      console.log(responseData);
-    } catch (error) {
-      console.log('lambda error', error);
-    }
-  }
-
   useEffect(() => {
     fetchFriendsList();
   }, []);
 
   return (
-    <View>
+    <View style={styles.main}>
       {dataLoading && <ActivityIndicator></ActivityIndicator>}
-      <Button
-        title="send email"
-        onPress={() => {
-          invokeLambdaFunction('velwitch@gmail.com');
-        }}></Button>
-      <Button
+      <View style={[styles.main, styles.friendsMain]}>
+        {friendList.map((friend, index) => (
+          <FriendCard
+            fetchFriends={() => {
+              fetchFriendsList();
+            }}
+            friendName={friend.friendName}
+            entryId={friend.id}
+            key={index}></FriendCard>
+        ))}
+      </View>
+      <TextInput
+        style={styles.textInput}
+        placeholder="enter friend's email"
+        value={email}
+        onChangeText={text => {
+          setEmail(text);
+        }}></TextInput>
+      {!requestLoading && (
+        <Button
+          title="send friend request"
+          onPress={() => {
+            if (email) {
+              invokeLambdaFunction(email);
+            } else {
+              setMessage("Please enter your friend's email adress");
+            }
+          }}></Button>
+      )}
+      {requestLoading && <ActivityIndicator></ActivityIndicator>}
+      <Text>{message}</Text>
+      {/*  <Button
         title="add friends"
         onPress={() => {
           invokeFriends();
@@ -111,9 +127,30 @@ const Friends = () => {
         title="delete friends"
         onPress={() => {
           deleteFriend('mijoh421lllwezvx6n_a');
-        }}></Button>
+        }}></Button> */}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  main: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  friendsMain: {borderBottomWidth: 1, borderColor: 'gray', paddingBottom: 10},
+  textInput: {width: '80%', borderWidth: 1, borderColor: 'gray', marginTop: 10},
+  friendCard: {
+    width: '80%',
+    backgroundColor: 'white',
+    height: 40,
+    borderRadius: 30,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+});
 
 export default Friends;

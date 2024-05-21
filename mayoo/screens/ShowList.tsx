@@ -14,12 +14,13 @@ import {ListIngredient, UpdateListResponse} from '../types/listsTypes';
 import ListItemCard from '../components/Lists/ListItemCard';
 import {updateList} from '../src/graphql/mutations';
 import {Observable} from 'rxjs';
-import {getList} from '../src/graphql/queries';
+import {getList, listFriends} from '../src/graphql/queries';
 import ModalTemplate from '../components/recipe/modals/ModalTemplate';
 import DeleteRecipe from '../components/recipe/modals/DeleteRecipe';
 import DeleteList from '../components/recipe/modals/DeleteList';
 import AddIngredientsToList from '../components/Lists/AddIngredientsToList';
 import {Ingredient} from '../types/recipeTypes';
+import {importedFriends} from '../types/friendsTypes';
 
 const client = generateClient();
 
@@ -31,6 +32,34 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
   let {routeList} = route.params;
   const [list, setList] = useState(routeList);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showFriends, setShowFriends] = useState(false);
+  const [friendList, setFriendList] = useState<importedFriends[]>([]);
+
+  const addFriendToList = async (newAuthor: string) => {
+    let newAuthorsArray = [...list.authors];
+    newAuthorsArray.push(newAuthor);
+    console.log(list.id);
+
+    const newRecipe = await client.graphql({
+      query: updateList,
+      variables: {
+        input: {id: list.id, authors: newAuthorsArray},
+      },
+    });
+  };
+
+  const fetchFriendsList = async () => {
+    try {
+      const recipeFriends: GraphQLResult<any> = await client.graphql({
+        query: listFriends,
+        variables: {},
+      });
+      console.log(recipeFriends.data.listFriends.items);
+      setFriendList(recipeFriends.data.listFriends.items);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const checkIngredient = async (index: number) => {
     let ingredientArray = [...list.ingredients].map((ingredient: any) => {
@@ -61,7 +90,6 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
       if (newRecipe instanceof Observable) {
         newRecipe.subscribe({
           next: response => {
-
             setList(response.data.updateList);
           },
           error: error => {
@@ -69,7 +97,6 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
           },
         });
       } else {
-
         setList(newRecipe.data.updateList);
       }
     } catch (error) {
@@ -93,10 +120,8 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
   };
 
   const addIngredient = async (ingredient: Ingredient) => {
-
-
     let ingredientArray: ListIngredient[] = [];
-    
+
     if (list.ingredients && list.ingredients.length > 0) {
       ingredientArray = [...list.ingredients].map((ingredient: any) => {
         // Create a new object without "__typename" field
@@ -137,7 +162,6 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
       if (updatedList instanceof Observable) {
         updatedList.subscribe({
           next: response => {
-  
             setList(response.data.updateList);
           },
           error: error => {
@@ -145,7 +169,6 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
           },
         });
       } else {
-
         setList(updatedList.data.updateList);
       }
     } catch (error) {
@@ -160,6 +183,28 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
       <Text style={styles.listName} numberOfLines={1} ellipsizeMode="tail">
         {list.name}
       </Text>
+      <TouchableOpacity
+        onPress={() => {
+          if (!showFriends) {
+            fetchFriendsList();
+          }
+          setShowFriends(!showFriends);
+        }}>
+        <Text>add friend</Text>
+      </TouchableOpacity>
+      {showFriends && (
+        <View>
+          {friendList.map((friend, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                addFriendToList(`${friend.friendSub}::${friend.friendName}`);
+              }}>
+              <Text>{friend.friendName}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
 
       {/* Ingredient cards */}
       <View style={styles.recipesView}>
