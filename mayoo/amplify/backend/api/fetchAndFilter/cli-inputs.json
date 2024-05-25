@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "paths": {
+    "/recipes/{author}/{filter}/{page}": {
+      "name": "/recipes/{author}/{filter}/{page}",
+      "lambdaFunction": "fetchAndFilterRecipes",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/list/{author}/{filter}/{page}": {
+      "name": "/list/{author}/{filter}/{page}",
+      "lambdaFunction": "fecthAndFilterLists",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

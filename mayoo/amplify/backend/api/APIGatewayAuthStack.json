@@ -19,6 +19,9 @@
     },
     "linkFriendsAPI": {
       "Type": "String"
+    },
+    "fetchAndFilter": {
+      "Type": "String"
     }
   },
   "Conditions": {
