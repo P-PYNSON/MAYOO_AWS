@@ -19,6 +19,7 @@ export type importedRecipe = {
   prepTime?: number;
   cookTime?: number;
   instructions?: string[];
+  authors: string[];
   createAt: string;
   updateAt: string;
 };

@@ -45,9 +45,7 @@ const RecipesList: React.FC<HomeScreenProps> = ({navigation}) => {
   };
 
   useEffect(() => {
-    navigation.addListener('focus', () => {
-      recipeData();
-    });
+    recipeData();
   }, [navigation]);
 
   return (
@@ -153,7 +151,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap:15
+    gap: 15,
   },
 });
 

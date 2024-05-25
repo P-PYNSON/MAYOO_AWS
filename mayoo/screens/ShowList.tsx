@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {RootStackParamList} from '../App';
 import {GraphQLResult, generateClient} from 'aws-amplify/api';
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -21,6 +22,7 @@ import DeleteList from '../components/recipe/modals/DeleteList';
 import AddIngredientsToList from '../components/Lists/AddIngredientsToList';
 import {Ingredient} from '../types/recipeTypes';
 import {importedFriends} from '../types/friendsTypes';
+import AddFriend from '../components/shared/AddFriend';
 
 const client = generateClient();
 
@@ -30,22 +32,51 @@ interface ShowRecipeProps {
 
 const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
   let {routeList} = route.params;
+
   const [list, setList] = useState(routeList);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showFriends, setShowFriends] = useState(false);
   const [friendList, setFriendList] = useState<importedFriends[]>([]);
+  const [addFriendMessage, setAddFriendMessage] = useState<string>();
 
-  const addFriendToList = async (newAuthor: string) => {
+  const addFriendToList = async (
+    newAthorSub: string,
+    newAuthorName: string,
+  ) => {
     let newAuthorsArray = [...list.authors];
-    newAuthorsArray.push(newAuthor);
-    console.log(list.id);
 
-    const newRecipe = await client.graphql({
-      query: updateList,
-      variables: {
-        input: {id: list.id, authors: newAuthorsArray},
-      },
-    });
+    if (!newAuthorsArray.includes(newAuthorName)) {
+      try {
+        newAuthorsArray.push(newAthorSub + '::' + newAuthorName);
+        const newRecipe = await client.graphql({
+          query: updateList,
+          variables: {
+            input: {id: list.id, authors: newAuthorsArray},
+          },
+        });
+
+        if (newRecipe instanceof Observable) {
+          newRecipe.subscribe({
+            next: response => {
+              setList(response.data.updateList);
+              setAddFriendMessage('friend added!');
+            },
+            error: error => {
+              console.error(error);
+              setAddFriendMessage('Request error');
+            },
+          });
+        } else {
+          setList(newRecipe.data.updateList);
+          setAddFriendMessage('friend added!');
+        }
+      } catch (error) {
+        console.log(error);
+        setAddFriendMessage('Request error');
+      }
+    } else {
+      setAddFriendMessage('Friend already added');
+    }
   };
 
   const fetchFriendsList = async () => {
@@ -183,28 +214,7 @@ const ShowList: React.FC<ShowRecipeProps> = ({route}) => {
       <Text style={styles.listName} numberOfLines={1} ellipsizeMode="tail">
         {list.name}
       </Text>
-      <TouchableOpacity
-        onPress={() => {
-          if (!showFriends) {
-            fetchFriendsList();
-          }
-          setShowFriends(!showFriends);
-        }}>
-        <Text>add friend</Text>
-      </TouchableOpacity>
-      {showFriends && (
-        <View>
-          {friendList.map((friend, index) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() => {
-                addFriendToList(`${friend.friendSub}::${friend.friendName}`);
-              }}>
-              <Text>{friend.friendName}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      )}
+      <AddFriend data={list} setList={setList}></AddFriend>
 
       {/* Ingredient cards */}
       <View style={styles.recipesView}>

@@ -16,6 +16,7 @@ import {getRecipe} from '../src/graphql/queries';
 import {importedRecipe} from '../types/recipeTypes';
 import InstructionsUnmodifiable from '../components/ShowRecipe/InstructionsUnmodifiable';
 import {getUrl} from 'aws-amplify/storage';
+import AddFriend from '../components/shared/AddFriend';
 
 const client = generateClient();
 
@@ -73,8 +74,10 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
   return (
     <ScrollView contentContainerStyle={styles.main}>
       {dataLoading && <ActivityIndicator size={'large'}></ActivityIndicator>}
+
       {recipe && (
         <View style={styles.mainView}>
+          <AddFriend data={recipe} setRecipe={setRecipe}></AddFriend>
           {!recipe.image && (
             <Image
               source={require('../assets/images/background.webp')}
