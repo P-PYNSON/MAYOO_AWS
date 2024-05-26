@@ -4,6 +4,9 @@ import {
   Button,
   ScrollView,
   StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {GraphQLResult, generateClient} from 'aws-amplify/api';
@@ -13,6 +16,7 @@ import {RootStackParamList} from '../App';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import RecipesListCard from '../components/recipeList/RecipeListCard';
 import RecipeShearchBar from '../components/recipeList/RecipeShearchBar';
+import {fetchRecipes} from '../amplify/backend/api/fetchAndFilter/functions';
 
 const client = generateClient();
 
@@ -22,44 +26,79 @@ interface HomeScreenProps {
 
 const RecipesList: React.FC<HomeScreenProps> = ({navigation}) => {
   const [recipesList, setRecipesList] = useState<importedRecipe[]>([]);
-  const [filteredList, setFilteredList] = useState<importedRecipe[]>([]);
+  const [inputText, setInputText] = useState('');
   const [dataLoading, setDataLoading] = useState<boolean>(true);
-  const [pageItems, setPageItems] = useState<number>(0);
+  const [filter, setFilter] = useState<string>('default');
+  const [page, setPage] = useState<number>(0);
   const [listLength, setListLength] = useState<number>(0);
   const itemsPerPage = 5;
+  const [lastEvaluatedKey, setLastEvaluatedKey] = useState<string | undefined>(
+    'first',
+  );
 
-  const recipeData = async () => {
-    try {
-      const recipeList: GraphQLResult<any> = await client.graphql({
-        query: listRecipes,
-        variables: {},
+  const shouldShowNextButton =
+    page * itemsPerPage + itemsPerPage < listLength ||
+    lastEvaluatedKey !== undefined;
+
+  const sendQuery = async (key: string, reset: boolean) => {
+    setDataLoading(true);
+    const previousListArray = [...recipesList];
+    const response = await fetchRecipes(filter, key);
+
+    if (reset == true) {
+      setPage(0);
+      setListLength(response.Count);
+      setRecipesList(response.Items);
+    } else {
+      response.Items.forEach((item: importedRecipe) => {
+        previousListArray.push(item);
       });
-
-      setRecipesList(recipeList.data.listRecipes.items);
-      setFilteredList(recipeList.data.listRecipes.items);
-      setListLength(recipeList.data.listRecipes.items.length);
-      setDataLoading(false);
-    } catch (error) {
-      console.log(error);
+      setRecipesList(previousListArray);
+      setListLength(listLength + response.Count);
     }
+
+    //somehow the query will return previous LastEvaluatedKey, even if new query count is less than set limit so :
+    if (
+      response.Count < itemsPerPage ||
+      response.LastEvaluatedKey == undefined ||
+      encodeURIComponent(JSON.stringify(response.LastEvaluatedKey)) ==
+        lastEvaluatedKey
+    ) {
+      setLastEvaluatedKey(undefined);
+    } else {
+      setLastEvaluatedKey(
+        encodeURIComponent(JSON.stringify(response.LastEvaluatedKey)),
+      );
+    }
+
+    setDataLoading(false);
   };
 
   useEffect(() => {
-    recipeData();
+    sendQuery('first', false);
   }, [navigation]);
 
   return (
     <ScrollView contentContainerStyle={styles.main}>
-      <RecipeShearchBar
-        setListLength={setListLength}
-        recipesList={recipesList}
-        setFilteredList={setFilteredList}
-        setDataLoading={setDataLoading}></RecipeShearchBar>
+      <View style={styles.inputMain}>
+        <TextInput
+          style={styles.textInput}
+          value={inputText}
+          onChangeText={text => {
+            setInputText(text);
+            setFilter(text);
+          }}></TextInput>
+        <Button
+          onPress={() => {
+            sendQuery('first', true);
+          }}
+          title="search"></Button>
+      </View>
       {dataLoading && <ActivityIndicator size={'large'}></ActivityIndicator>}
       <View style={styles.mainView}>
         {recipesList.length > 0 &&
-          filteredList
-            .slice(pageItems, pageItems + itemsPerPage)
+          recipesList
+            .slice(itemsPerPage * page, itemsPerPage * page + itemsPerPage)
             .map((recipe: importedRecipe, index: number) => (
               <RecipesListCard
                 key={index}
@@ -68,22 +107,30 @@ const RecipesList: React.FC<HomeScreenProps> = ({navigation}) => {
             ))}
       </View>
       <View style={styles.pagesButtonsView}>
-        {pageItems - itemsPerPage >= 0 && (
-          <Button
+        {page > 0 && (
+          <TouchableOpacity
+            style={styles.previousButton}
             onPress={() => {
-              if (pageItems - itemsPerPage >= 0) {
-                setPageItems(pageItems - itemsPerPage);
+              if (page > 0) {
+                setPage(page - 1);
               }
-            }}
-            title="previous"></Button>
+            }}>
+            <Text style={styles.pageButtonsText}>previous</Text>
+          </TouchableOpacity>
         )}
-        {pageItems + itemsPerPage < listLength && (
-          <Button
+        {shouldShowNextButton && (
+          <TouchableOpacity
+            style={styles.nextButton}
             onPress={() => {
-              if (pageItems + itemsPerPage <= listLength)
-                setPageItems(pageItems + itemsPerPage);
-            }}
-            title="next"></Button>
+              if (page * itemsPerPage < listLength) {
+                setPage(page + 1);
+              }
+              if (lastEvaluatedKey !== undefined) {
+                sendQuery(lastEvaluatedKey, false);
+              }
+            }}>
+            <Text style={styles.pageButtonsText}>next</Text>
+          </TouchableOpacity>
         )}
       </View>
     </ScrollView>
@@ -97,6 +144,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  inputMain: {
+    marginTop: 10,
+    width: '90%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 15,
+  },
+  textInput: {
+    width: '70%',
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 20,
+    backgroundColor: 'white',
+  },
+  button: {width: '20%'},
+  buttonText: {},
   mainView: {
     width: '90%',
     display: 'flex',
@@ -145,14 +210,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   pagesButtonsView: {
+    height: 50,
     width: '90%',
-    marginTop: 10,
+    marginVertical: 10,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 15,
+    position: 'relative',
   },
+  previousButton: {position: 'absolute', right: 0},
+  nextButton: {
+    backgroundColor: '#79c2d0',
+    height:'100%',
+    width: '40%',
+    position: 'absolute',
+    right: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  pageButtonsText: {},
 });
 
 export default RecipesList;

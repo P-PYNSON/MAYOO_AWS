@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Button,
   ImageBackground,
@@ -14,19 +14,21 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import OptionsScreen from './OptionsScreen';
 import {BlurView} from '@react-native-community/blur';
 import ContouredText from '../components/shared/ContouredText';
+import {fetchRecipes} from '../amplify/backend/api/fetchAndFilter/functions';
 
 interface HomeScreenProps {
   navigation: NativeStackNavigationProp<RootStackParamList>;
 }
 
 const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
+ 
+
   return (
     <ImageBackground
       source={require('../assets/images/background.webp')}
       style={styles.backgroundImage}>
       <ScrollView contentContainerStyle={styles.scrollview}>
-        {/*   <OptionsScreen></OptionsScreen>
-         */}
+     
         <TouchableOpacity
           style={styles.allRecipesView}
           onPress={() => navigation.navigate('RecipesList')}>

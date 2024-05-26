@@ -16,49 +16,45 @@ import {importedRecipe} from '../../types/recipeTypes';
 const client = generateClient();
 
 interface RecipeShearchBarProps {
-  recipesList: importedRecipe[];
-  setFilteredList: (recipes: importedRecipe[]) => void;
-  setDataLoading: (boolean: boolean) => void;
-  setListLength: (number: number) => void;
+  setFilter: (string: string) => void;
+  setPage: (number: number) => void;
+  setCount: (number: number) => void;
+  setList: (list: importedRecipe[]) => void;
+  getRecipes: (page: string) => void;
 }
 
 const RecipeShearchBar = ({
-  setListLength,
-  setFilteredList,
-  setDataLoading,
-  recipesList,
+  setFilter,
+  setPage,
+  setCount,
+  setList,
+  getRecipes,
 }: RecipeShearchBarProps) => {
   const [inputText, setInputText] = useState('');
 
-  const recipeData = async () => {
-    try {
-      const recipesListArray = recipesList.filter(recipe =>
-        recipe.name.toLowerCase().includes(inputText.toLowerCase()),
-      );
-      console.log(recipesListArray.length);
-
-      setListLength(recipesListArray.length);
-      setFilteredList(recipesListArray);
-      setDataLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
-    <View style={styles.main}>
+    <View style={styles.inputMain}>
       <TextInput
         style={styles.textInput}
         value={inputText}
         onChangeText={text => {
           setInputText(text);
+          setFilter(text);
         }}></TextInput>
-      <Button onPress={() => recipeData()} title="search"></Button>
+      <Button
+        onPress={() => {
+          setPage(0);
+          setCount(0);
+          setList([]);
+          getRecipes('first');
+        }}
+        title="search"></Button>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  main: {
+  inputMain: {
     marginTop: 10,
     width: '90%',
     display: 'flex',

@@ -1,6 +1,10 @@
 [
   {
-    "Action": [],
-    "Resource": []
+    "Effect": "Allow",
+    "Action": ["dynamodb:Query", "dynamodb:Scan"],
+    "Resource": [
+      "arn:aws:dynamodb:eu-north-1:471112831225:table/Recipe-kaixblblyvanhhrzha4lvottay-dev",
+      "arn:aws:dynamodb:eu-north-1:471112831225:table/Recipe-kaixblblyvanhhrzha4lvottay-dev/index/authors-index"
+    ]
   }
 ]

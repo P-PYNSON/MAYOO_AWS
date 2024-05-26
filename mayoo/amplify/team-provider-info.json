@@ -51,11 +51,11 @@
         },
         "fetchAndFilterRecipes": {
           "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
-          "s3Key": "amplify-builds/fetchAndFilterRecipes-4835716e635972797067-build.zip"
+          "s3Key": "amplify-builds/fetchAndFilterRecipes-5077792f507a417a3557-build.zip"
         },
         "fecthAndFilterLists": {
           "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
-          "s3Key": "amplify-builds/fecthAndFilterLists-574b44396d4e44393568-build.zip"
+          "s3Key": "amplify-builds/fecthAndFilterLists-74304d50315441684369-build.zip"
         }
       },
       "storage": {

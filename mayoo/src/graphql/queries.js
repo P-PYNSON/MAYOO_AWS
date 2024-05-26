@@ -172,6 +172,8 @@ export const listFriends = /* GraphQL */ `
         friendName
         friendSub
         author
+        createdAt
+        updatedAt
         __typename
       }
       nextToken

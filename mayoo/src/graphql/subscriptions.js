@@ -2,8 +2,11 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateRecipe = /* GraphQL */ `
-  subscription OnCreateRecipe($filter: ModelSubscriptionRecipeFilterInput) {
-    onCreateRecipe(filter: $filter) {
+  subscription OnCreateRecipe(
+    $filter: ModelSubscriptionRecipeFilterInput
+    $authors: String
+  ) {
+    onCreateRecipe(filter: $filter, authors: $authors) {
       id
       name
       category
@@ -27,8 +30,11 @@ export const onCreateRecipe = /* GraphQL */ `
   }
 `;
 export const onUpdateRecipe = /* GraphQL */ `
-  subscription OnUpdateRecipe($filter: ModelSubscriptionRecipeFilterInput) {
-    onUpdateRecipe(filter: $filter) {
+  subscription OnUpdateRecipe(
+    $filter: ModelSubscriptionRecipeFilterInput
+    $authors: String
+  ) {
+    onUpdateRecipe(filter: $filter, authors: $authors) {
       id
       name
       category
@@ -52,8 +58,11 @@ export const onUpdateRecipe = /* GraphQL */ `
   }
 `;
 export const onDeleteRecipe = /* GraphQL */ `
-  subscription OnDeleteRecipe($filter: ModelSubscriptionRecipeFilterInput) {
-    onDeleteRecipe(filter: $filter) {
+  subscription OnDeleteRecipe(
+    $filter: ModelSubscriptionRecipeFilterInput
+    $authors: String
+  ) {
+    onDeleteRecipe(filter: $filter, authors: $authors) {
       id
       name
       category

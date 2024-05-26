@@ -38,6 +38,7 @@ const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
   };
   useEffect(() => {
     createImageUrl();
+    console.log('recipe image:', recipe.image);
   }, [recipe, navigation]);
 
   return (
@@ -52,7 +53,7 @@ const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
             source={require('../../assets/images/background.webp')}
             style={styles.recipeImage}></Image>
         )}
-        {recipeImageUrl != undefined && (
+        {recipe.image && recipeImageUrl != undefined && (
           <Image
             source={{uri: recipeImageUrl}}
             style={styles.recipeImage}></Image>
@@ -61,7 +62,6 @@ const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
           <ActivityIndicator></ActivityIndicator>
         )}
         <View style={styles.textView}>
-          <BlurView style={styles.absolute} blurType="light" blurAmount={6} />
           <Text style={styles.textViewText}>{recipe.name}</Text>
         </View>
 
@@ -173,13 +173,14 @@ const styles = StyleSheet.create({
     width: '70%',
     top: 10,
     alignSelf: 'center',
-    padding: 10,
     borderRadius: 20,
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     overflow: 'hidden',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    padding: 10,
   },
+  
   textViewText: {fontSize: 20, fontFamily: 'Coffee', color: 'orange'},
   buttonView: {
     marginTop: 5,
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     overflow: 'hidden',
   },
-  optionsButtonsText: {fontFamily:'Coffee', fontSize: 18, color: 'white'},
+  optionsButtonsText: {fontFamily: 'Coffee', fontSize: 18, color: 'white'},
   absolute: {
     position: 'absolute',
     top: 0,

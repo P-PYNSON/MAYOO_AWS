@@ -16,7 +16,7 @@ type Recipe @model @auth(rules: [{allow: owner, ownerField: "authors"}]) {
   instructions: [String]
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
-  authors: [String]
+  authors: String
 }
 
 type List @model @auth(rules: [{allow: owner, ownerField: "authors"}]) {
