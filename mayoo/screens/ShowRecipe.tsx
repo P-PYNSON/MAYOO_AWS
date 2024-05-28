@@ -77,7 +77,7 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
 
       {recipe && (
         <View style={styles.mainView}>
-          <AddFriend data={recipe} setRecipe={setRecipe}></AddFriend>
+         {/*  <AddFriend data={recipe} setRecipe={setRecipe}></AddFriend> */}
           {!recipe.image && (
             <Image
               source={require('../assets/images/background.webp')}

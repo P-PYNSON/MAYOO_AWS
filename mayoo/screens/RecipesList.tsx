@@ -115,7 +115,7 @@ const RecipesList: React.FC<HomeScreenProps> = ({navigation}) => {
                 setPage(page - 1);
               }
             }}>
-            <Text style={styles.pageButtonsText}>previous</Text>
+            <Text style={styles.pageButtonsText}>Previous</Text>
           </TouchableOpacity>
         )}
         {shouldShowNextButton && (
@@ -129,7 +129,7 @@ const RecipesList: React.FC<HomeScreenProps> = ({navigation}) => {
                 sendQuery(lastEvaluatedKey, false);
               }
             }}>
-            <Text style={styles.pageButtonsText}>next</Text>
+            <Text style={styles.pageButtonsText}>Next</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -220,10 +220,19 @@ const styles = StyleSheet.create({
     gap: 15,
     position: 'relative',
   },
-  previousButton: {position: 'absolute', right: 0},
+  previousButton: {
+    backgroundColor: '#79c2d0',
+    height: '100%',
+    width: '40%',
+    position: 'absolute',
+    left: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   nextButton: {
     backgroundColor: '#79c2d0',
-    height:'100%',
+    height: '100%',
     width: '40%',
     position: 'absolute',
     right: 0,
@@ -231,7 +240,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  pageButtonsText: {},
+  pageButtonsText: {color:'white', fontWeight:'bold', fontSize:20},
 });
 
 export default RecipesList;

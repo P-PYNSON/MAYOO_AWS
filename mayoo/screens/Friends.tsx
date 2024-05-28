@@ -33,6 +33,7 @@ const Friends = () => {
       setDataLoading(false);
     } catch (error) {
       console.log(error);
+      setDataLoading(false);
     }
   };
 
@@ -118,16 +119,6 @@ const Friends = () => {
       )}
       {requestLoading && <ActivityIndicator></ActivityIndicator>}
       <Text>{message}</Text>
-      {/*  <Button
-        title="add friends"
-        onPress={() => {
-          invokeFriends();
-        }}></Button>
-      <Button
-        title="delete friends"
-        onPress={() => {
-          deleteFriend('mijoh421lllwezvx6n_a');
-        }}></Button> */}
     </View>
   );
 };
@@ -140,7 +131,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   friendsMain: {borderBottomWidth: 1, borderColor: 'gray', paddingBottom: 10},
-  textInput: {width: '80%', borderWidth: 1, borderColor: 'gray', marginTop: 10},
+  textInput: {width: '80%', borderWidth: 1, borderColor: 'gray', marginTop: 10, marginBottom:10},
   friendCard: {
     width: '80%',
     backgroundColor: 'white',
