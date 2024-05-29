@@ -59,4 +59,3 @@ type ListIngredient {
   name: String!
   quantities: [String]
 }
-
