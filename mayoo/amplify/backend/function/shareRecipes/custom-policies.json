@@ -1,0 +1,18 @@
+[
+  {
+    "Effect": "Allow",
+    "Action": [
+      "dynamodb:Query",
+      "dynamodb:Scan",
+      "dynamodb:DeleteItem",
+      "dynamodb:PutItem",
+      "dynamodb:GetItem",
+      "dynamodb:UpdateItem",
+      "dynamodb:CreateItem"
+    ],
+    "Resource": [
+      "arn:aws:dynamodb:eu-north-1:471112831225:table/Recipe-kaixblblyvanhhrzha4lvottay-dev",
+      "arn:aws:dynamodb:eu-north-1:471112831225:table/Recipe-kaixblblyvanhhrzha4lvottay-dev/index/authors-index"
+    ]
+  }
+]

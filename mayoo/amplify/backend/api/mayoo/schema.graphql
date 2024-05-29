@@ -16,6 +16,8 @@ type Recipe @model @auth(rules: [{allow: owner, ownerField: "authors"}]) {
   instructions: [String]
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
+  originated: String
+  sharedWith:[String]
   authors: String
 }
 

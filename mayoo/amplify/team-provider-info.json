@@ -21,7 +21,8 @@
         "fetchSpoonIngredient": {},
         "sendEmailApi": {},
         "linkFriendsAPI": {},
-        "fetchAndFilter": {}
+        "fetchAndFilter": {},
+        "mayooRecipes": {}
       },
       "function": {
         "fetchSpoonAPI": {
@@ -56,6 +57,14 @@
         "fecthAndFilterLists": {
           "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
           "s3Key": "amplify-builds/fecthAndFilterLists-6157514567445449554b-build.zip"
+        },
+        "shareRecipes": {
+          "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
+          "s3Key": "amplify-builds/shareRecipes-566844504978567a3448-build.zip"
+        },
+        "deleteRecipe": {
+          "deploymentBucketName": "amplify-mayoo-dev-164751-deployment",
+          "s3Key": "amplify-builds/deleteRecipe-6354485130567a6d4c36-build.zip"
         }
       },
       "storage": {

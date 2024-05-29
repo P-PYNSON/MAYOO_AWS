@@ -101,6 +101,7 @@ const RecipesList: React.FC<HomeScreenProps> = ({navigation}) => {
             .slice(itemsPerPage * page, itemsPerPage * page + itemsPerPage)
             .map((recipe: importedRecipe, index: number) => (
               <RecipesListCard
+                sendQuery={sendQuery}
                 key={index}
                 navigation={navigation}
                 recipe={recipe}></RecipesListCard>
@@ -240,7 +241,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  pageButtonsText: {color:'white', fontWeight:'bold', fontSize:20},
+  pageButtonsText: {color: 'white', fontWeight: 'bold', fontSize: 20},
 });
 
 export default RecipesList;

@@ -32,25 +32,25 @@ const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
         <TouchableOpacity
           style={styles.allRecipesView}
           onPress={() => navigation.navigate('RecipesList')}>
-          <BlurView style={styles.absolute} blurType="light" blurAmount={6} />
+         {/*  <BlurView style={styles.absolute} blurType="light" blurAmount={6} /> */}
           <ContouredText fontSize={30}>My recipes</ContouredText>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.newRecipeView}
           onPress={() => navigation.navigate('CreateRecipe')}>
-          <BlurView style={styles.absolute} blurType="light" blurAmount={6} />
+        {/*   <BlurView style={styles.absolute} blurType="light" blurAmount={6} /> */}
           <ContouredText fontSize={30}>Create new recipe</ContouredText>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.listsView}
           onPress={() => navigation.navigate('MyLists')}>
-          <BlurView style={styles.absolute} blurType="light" blurAmount={6} />
+          {/* <BlurView style={styles.absolute} blurType="light" blurAmount={6} /> */}
           <ContouredText fontSize={30}>My lists</ContouredText>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.friendsView}
           onPress={() => navigation.navigate('FriendsList')}>
-          <BlurView style={styles.absolute} blurType="light" blurAmount={6} />
+         {/*  <BlurView style={styles.absolute} blurType="light" blurAmount={6} /> */}
           <ContouredText fontSize={30}>My friends</ContouredText>
         </TouchableOpacity>
       </ScrollView>
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.50)',
+    backgroundColor: 'rgba(0, 0, 0, 0.80)',
     width: '85%',
     height: '25%',
     borderRadius: 16,
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.50)',
+    backgroundColor: 'rgba(0, 0, 0, 0.80)',
     width: '85%',
     height: '20%',
     borderRadius: 16,
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.50)',
+    backgroundColor: 'rgba(0, 0, 0, 0.80)',
     width: '85%',
     height: '20%',
     borderRadius: 16,
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.50)',
+    backgroundColor: 'rgba(0, 0, 0, 0.80)',
     width: '85%',
     height: '20%',
     borderRadius: 16,

@@ -19,6 +19,8 @@ export type importedRecipe = {
   prepTime?: number;
   cookTime?: number;
   instructions?: string[];
+  sharedWith: string[];
+  originated: string;
   authors: string;
   createAt: string;
   updateAt: string;
@@ -48,5 +50,5 @@ export type graphQlReturnedIngredient = {
   name: string;
   quantity: number;
   unit: string;
-  __typename:string;
+  __typename: string;
 };

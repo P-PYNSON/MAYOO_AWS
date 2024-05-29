@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "paths": {
+    "/recipes/share": {
+      "name": "/recipes/share",
+      "lambdaFunction": "shareRecipes",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/recipes/delete": {
+      "name": "/recipes/delete",
+      "lambdaFunction": "deleteRecipe",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

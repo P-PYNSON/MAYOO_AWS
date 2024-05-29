@@ -24,6 +24,7 @@ export const createRecipe = /* GraphQL */ `
       instructions
       createdAt
       updatedAt
+      originated
       sharedWith
       authors
       __typename
@@ -53,6 +54,7 @@ export const updateRecipe = /* GraphQL */ `
       instructions
       createdAt
       updatedAt
+      originated
       sharedWith
       authors
       __typename
@@ -82,6 +84,7 @@ export const deleteRecipe = /* GraphQL */ `
       instructions
       createdAt
       updatedAt
+      originated
       sharedWith
       authors
       __typename

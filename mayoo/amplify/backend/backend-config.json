@@ -82,6 +82,28 @@
       "providerPlugin": "awscloudformation",
       "service": "AppSync"
     },
+    "mayooRecipes": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "shareRecipes"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "deleteRecipe"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "sendEmailApi": {
       "dependsOn": [
         {
@@ -130,6 +152,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "deleteRecipe": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "fecthAndFilterLists": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -158,6 +185,11 @@
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "shareRecipes": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -182,6 +214,22 @@
         {
           "category": "function",
           "resourceName": "deleteFriendFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteRecipe_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteRecipe"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteRecipe_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteRecipe"
         }
       ]
     },
@@ -286,6 +334,22 @@
         {
           "category": "function",
           "resourceName": "sendFriendMail"
+        }
+      ]
+    },
+    "AMPLIFY_function_shareRecipes_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "shareRecipes"
+        }
+      ]
+    },
+    "AMPLIFY_function_shareRecipes_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "shareRecipes"
         }
       ]
     }

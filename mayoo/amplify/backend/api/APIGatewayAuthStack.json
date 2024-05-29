@@ -22,6 +22,9 @@
     },
     "fetchAndFilter": {
       "Type": "String"
+    },
+    "mayooRecipes": {
+      "Type": "String"
     }
   },
   "Conditions": {

@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {generateClient} from 'aws-amplify/api';
-import {
-  deleteRecipe,
-} from '../../../src/graphql/mutations';
+import {deleteRecipe} from '../../../amplify/backend/api/mayooRecipes/functions';
 
 const client = generateClient();
 
@@ -16,27 +9,21 @@ interface RecipeFailedProps {
   closeModal: () => void;
   recipeName: string;
   recipeID: string;
+  originalRecipeId: string;
 }
 
 const DeleteRecipe = ({
   closeModal,
   recipeName,
   recipeID,
+  originalRecipeId,
 }: RecipeFailedProps) => {
-    
   const DeleteRecipe = async () => {
     try {
-      const newRecipe = await client.graphql({
-        query: deleteRecipe,
-        variables: {
-          input: {
-            id: recipeID,
-          },
-        },
-      });
+      await deleteRecipe(originalRecipeId, recipeID);
       closeModal();
     } catch (error) {
-      console.log(error);
+      console.log('error deleting (front)', error);
     }
   };
 
@@ -49,7 +36,7 @@ const DeleteRecipe = ({
       <TouchableOpacity
         style={styles.navigationButtonsDelete}
         onPress={() => {
-            DeleteRecipe();
+          DeleteRecipe();
         }}>
         <Text style={styles.navigationButtonsText}>DELETE</Text>
       </TouchableOpacity>

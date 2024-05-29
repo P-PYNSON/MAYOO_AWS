@@ -16,7 +16,8 @@ import {getRecipe} from '../src/graphql/queries';
 import {importedRecipe} from '../types/recipeTypes';
 import InstructionsUnmodifiable from '../components/ShowRecipe/InstructionsUnmodifiable';
 import {getUrl} from 'aws-amplify/storage';
-import AddFriend from '../components/shared/AddFriend';
+
+import AddFriendToRecipe from '../components/shared/AddFriendToRecipe';
 
 const client = generateClient();
 
@@ -53,6 +54,7 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
             id: id,
           },
         });
+        console.log(newRecipe.data.getRecipe);
 
         setRecipe(newRecipe.data.getRecipe);
         setDataLoading(false);
@@ -77,7 +79,7 @@ const ShowRecipe: React.FC<ShowRecipeProps> = ({route}) => {
 
       {recipe && (
         <View style={styles.mainView}>
-         {/*  <AddFriend data={recipe} setRecipe={setRecipe}></AddFriend> */}
+          <AddFriendToRecipe data={recipe}></AddFriendToRecipe>
           {!recipe.image && (
             <Image
               source={require('../assets/images/background.webp')}

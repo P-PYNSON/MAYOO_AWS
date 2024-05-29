@@ -19,6 +19,11 @@ export type AmplifyDependentResourcesAttributes = {
       "GraphQLAPIEndpointOutput": "string",
       "GraphQLAPIIdOutput": "string"
     },
+    "mayooRecipes": {
+      "ApiId": "string",
+      "ApiName": "string",
+      "RootUrl": "string"
+    },
     "sendEmailApi": {
       "ApiId": "string",
       "ApiName": "string",
@@ -38,6 +43,13 @@ export type AmplifyDependentResourcesAttributes = {
   },
   "function": {
     "deleteFriendFunction": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "deleteRecipe": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
@@ -73,6 +85,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Region": "string"
     },
     "sendFriendMail": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "shareRecipes": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

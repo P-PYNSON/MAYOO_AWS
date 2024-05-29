@@ -19,9 +19,14 @@ import {BlurView} from '@react-native-community/blur';
 interface HomeScreenProps {
   navigation: NativeStackNavigationProp<RootStackParamList>;
   recipe: importedRecipe;
+  sendQuery: (page: string, bool: boolean) => void;
 }
 
-const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
+const RecipesListCard: React.FC<HomeScreenProps> = ({
+  navigation,
+  recipe,
+  sendQuery,
+}) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [showAddToListModal, setAddToListModal] = useState<boolean>(false);
@@ -132,8 +137,10 @@ const RecipesListCard: React.FC<HomeScreenProps> = ({navigation, recipe}) => {
           <DeleteRecipe
             recipeName={recipe.name}
             recipeID={recipe.id}
+            originalRecipeId={recipe.originated}
             closeModal={() => {
               setShowDeleteModal(!showDeleteModal);
+              sendQuery('first', true);
             }}></DeleteRecipe>
         </ModalTemplate>
 
@@ -180,7 +187,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     padding: 10,
   },
-  
+
   textViewText: {fontSize: 20, fontFamily: 'Coffee', color: 'orange'},
   buttonView: {
     marginTop: 5,

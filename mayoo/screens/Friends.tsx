@@ -12,6 +12,7 @@ import {listFriends} from '../src/graphql/queries';
 import {importedFriends} from '../types/friendsTypes';
 import {getCurrentUser} from 'aws-amplify/auth';
 import FriendCard from '../components/friends/FriendCard';
+import {shareRecipe} from '../amplify/backend/api/mayooRecipes/functions';
 
 const client = generateClient();
 
@@ -87,6 +88,16 @@ const Friends = () => {
 
   return (
     <View style={styles.main}>
+      <Button
+        title="share"
+        onPress={() =>
+          shareRecipe(
+            '60b7d880-f3ab-4706-b25a-29384b515c52',
+            '0c91e99a-49b2-4361-aaa7-4efcd495ce3b',
+            'velwitch7',
+          )
+       
+        }></Button>
       {dataLoading && <ActivityIndicator></ActivityIndicator>}
       <View style={[styles.main, styles.friendsMain]}>
         {friendList.map((friend, index) => (
@@ -131,7 +142,13 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   friendsMain: {borderBottomWidth: 1, borderColor: 'gray', paddingBottom: 10},
-  textInput: {width: '80%', borderWidth: 1, borderColor: 'gray', marginTop: 10, marginBottom:10},
+  textInput: {
+    width: '80%',
+    borderWidth: 1,
+    borderColor: 'gray',
+    marginTop: 10,
+    marginBottom: 10,
+  },
   friendCard: {
     width: '80%',
     backgroundColor: 'white',
