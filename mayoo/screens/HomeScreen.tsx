@@ -50,7 +50,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
         <TouchableOpacity
           style={styles.friendsView}
           onPress={() => navigation.navigate('FriendsList')}>
-         {/*  <BlurView style={styles.absolute} blurType="light" blurAmount={6} /> */}
+         {/* sssssssss */}
           <ContouredText fontSize={30}>My friends</ContouredText>
         </TouchableOpacity>
       </ScrollView>
